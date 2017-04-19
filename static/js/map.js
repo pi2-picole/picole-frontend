@@ -1,5 +1,11 @@
 var posCORRETA = {}
-var saborizze = {lat: -16.254184, lng: -47.958176}
+var A = {lat: -16.254184, lng: -47.958176}
+var B = {lat: -16.004690, lng: -48.074022}
+var C = {lat: -16.200084, lng: -47.900176}
+var D = {lat: -16.244184, lng: -47.911176}
+var E = {lat: -16.234184, lng: -47.900076}
+var F = {lat: -16.264184, lng: -47.967176}
+
 //inicia o mapa
 function initMap() {
   var directionsService = new google.maps.DirectionsService;
@@ -40,19 +46,36 @@ function initMap() {
         }
 
 
-       var marker1 = new google.maps.Marker({
-        position: saborizze,
+       var markerA = new google.maps.Marker({
+        position: A,
         map: map,
-        title: 'Saborizze!'
+        title: 'A'
       });
-
-      var marker2 = new google.maps.Marker({
-        position: document.getElementById('end').value,
+        var markerB = new google.maps.Marker({
+        position: B,
         map: map,
-        title: 'Saborizze!'
+        title: 'B'
       });
-
-        
+        var markerC = new google.maps.Marker({
+        position: C,
+        map: map,
+        title: 'C'
+      });
+        var markerD = new google.maps.Marker({
+        position: D,
+        map: map,
+        title: 'D'
+      });
+        var marker = new google.maps.Marker({
+        position: E,
+        map: map,
+        title: 'E'
+      });
+      var markerF = new google.maps.Marker({
+        position: F,
+        map: map,
+        title: 'F'
+      });
 }
 
 //caso não consiga pegar a localização do usuário ou ele se recuse a permitir 
@@ -61,15 +84,17 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
         infoWindow.setContent(browserHasGeolocation ?
                               'Error: The Geolocation service failed.' :
                               'Error: Your browser doesn\'t support geolocation.');
-      }
+}
 
 
 //calcula a rota, tem que adicionar os outros tipos de travelMode
 function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+  var destinationString = document.getElementById('end').value
+  eval('var end='+destinationString)
   directionsService.route({
     origin: posCORRETA,
-    destination: document.getElementById('end').value,
-    travelMode: 'WALKING'
+    destination: end,
+    travelMode: document.getElementById('mode').value
   }, function(response, status) {
     if (status === 'OK') {
       directionsDisplay.setDirections(response);
@@ -78,3 +103,4 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay) {
     }
   });
 }
+
