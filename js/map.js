@@ -76,6 +76,10 @@ function initMap() {
         map: map,
         title: 'F'
       });
+
+    google.maps.event.addListener(markerB, 'click', function() {
+		  $('#myModal').modal('show')
+    });
 }
 
 //caso não consiga pegar a localização do usuário ou ele se recuse a permitir 
