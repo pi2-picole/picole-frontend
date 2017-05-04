@@ -526,6 +526,11 @@ ul.sub-menu {
   position: absolute;
   right: 0;
   bottom: 0;
+  max-height: 60%;
+  max-width: 60%;
+  padding-right: 20%;
+
+
 }
 
 .animate-in .slider-house {
@@ -2601,4 +2606,16 @@ span.stButton_gradient,
   -webkit-box-shadow: 0 0 0 5px rgba(0,0,0,.1) inset;
   border-radius: 100%;
   margin: 10px 0;
+}
+.credit-card-div  span {
+    padding-top:10px;
+        }
+.credit-card-div img {
+    padding-top:30px;
+}
+.credit-card-div .small-font {
+    font-size:9px;
+}
+.credit-card-div .pad-adjust {
+    padding-top:10px;
 }
