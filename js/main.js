@@ -83,3 +83,7 @@ jQuery(function($) {'use strict';
 		$(this).css('width', $(this).attr('data-transition')+'%');
 	});
 });
+
+$('#openCard').on('click', function() {
+    $('#cardModal').modal('show');
+	}); 
