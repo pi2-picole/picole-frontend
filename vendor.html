@@ -27,7 +27,7 @@
 </head><!--/head-->
 
 <body>
-  <!-- #header-->
+    <!-- #header-->
       <div class="header"></div>
     <!--/#header-->
 
@@ -37,7 +37,7 @@
 
     function randomPassword(length)
     {
-      chars = "abcdefghijklmnopqrstuvwxyz";
+      chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
       pass = "";
       for(x=0;x<length;x++)
       {
@@ -48,7 +48,7 @@
     }
     function formSubmit()
     {
-      passform.passbox.value = randomPassword(10);
+      passform.passbox.value = randomPassword(6);
       return false;
     }
     </script>
@@ -69,19 +69,26 @@
                                   <div class="form-group">
                                       <input type="email" name="email" class="form-control" required="required" placeholder="Email">
                                   </div>
-                              </form>
 
+
+                              <div class="row">
                               <form name="passform">
-                                  <input name="passbox" type="text" size="50" tabindex="1" class="form-control" placeholder="Senha"></p>
-                                <p>
-                                    <input type="button" value="Gerar" onClick="javascript:formSubmit()" tabindex="2"> 
-                                    <input type="reset" value="Limpar" tabindex="3">
-                                </p>
+                                <div class="col-md-6 col-sm-12">
+                                  <input name="passbox" type="text" tabindex="1" class="form-control" placeholder="Senha">
+                                </div>
+                                  <div class="col-md-3 col-sm-12">
+                                    <input type="button" value="Gerar" onClick="javascript:formSubmit()" tabindex="2" class="btn btn-submit"  > 
+                                  </div>
+                                    <div class="col-md-3 col-sm-12">
+                                    <input type="reset" value="Limpar" tabindex="3" class="btn btn-submit">
+                                  </div>
                               </form>
+                            </div>
 
                               <div class="form-group">
                                   <input type="submit" name="submit" class="btn btn-submit" value="Submit">
                               </div>
+                              </form>
                           </div>
                       </div>
                     </div>
@@ -99,7 +106,7 @@
     <script type="text/javascript" src="js/wow.min.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
     <script type="text/javascript" src="js/map.js"></script>
-    <script type="text/javascript" src="js/vendor.js"></script>
+    <script type="text/javascript" src="js/header.js"></script>
 
 </body>
 </html>
