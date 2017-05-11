@@ -48,7 +48,8 @@
     }
     function formSubmit()
     {
-      passform.passbox.value = randomPassword(6);
+
+      document.getElementById("passwordField").value = randomPassword(6);
       return false;
     }
     </script>
@@ -69,26 +70,21 @@
                                   <div class="form-group">
                                       <input type="email" name="email" class="form-control" required="required" placeholder="Email">
                                   </div>
-                                </form>
-
                               <div class="row">
-                              <form name="passform">
                                 <div class="col-md-6 col-sm-12">
-                                  <input name="passbox" type="text" tabindex="1" class="form-control" placeholder="Senha">
+                                  <input name="passbox" type="text" tabindex="1" id="passwordField" class="form-control" placeholder="Senha">
                                 </div>
                                   <div class="col-md-3 col-sm-12">
-                                    <input type="button" value="Gerar" onClick="javascript:formSubmit()" tabindex="2" class="btn btn-submit"  > 
+                                    <button type="button" value="Gerar" onClick="javascript:formSubmit()" tabindex="2" class="btn btn-submit">Gerar</button>
                                   </div>
                                     <div class="col-md-3 col-sm-12">
                                     <input type="reset" value="Limpar" tabindex="3" class="btn btn-submit">
                                   </div>
-                              </form>
                             </div>
-
                               <div class="form-group">
                                   <input type="submit" name="submit" class="btn btn-submit" value="Submit">
                               </div>
-
+                            </form>
                           </div>
                       </div>
                     </div>
