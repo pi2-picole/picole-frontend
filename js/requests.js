@@ -1,6 +1,18 @@
+$(document).ready(function(){
 
-$( "#x1" ).click(function() {
-    $.get('https://openexchangerates.org/api/currencies.json', function(data) {
-        console.log(data);
-    });
-});
+// jQuery.get('https://picole-pi2.herokuapp.com/popsicles/2', function(data) {
+//       var teste = data.flavor;
+//       document.getElementById("sabor").innerHTML = teste;
+//
+//   });
+
+jQuery.get('https://picole-pi2.herokuapp.com/machines/1', function(data) {
+    for(let i=0; i<data.stocks.length; i++){
+
+      $('#sabor-'+ i).text(data.stocks[i].popsicle.flavor);
+      $('#quantity-'+ i).val(data.stocks[i].amount);
+    }
+
+  });
+
+})

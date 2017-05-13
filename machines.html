@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Cadastro De Saboresr</title>
+    <title>Cadastro De Máquinas</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/prettyPhoto.css" rel="stylesheet">
@@ -31,6 +31,30 @@
       <div class="header"></div>
     <!--/#header-->
 
+    <BODY>
+
+    <SCRIPT LANGUAGE="JavaScript">
+
+    function randomPassword(length)
+    {
+      chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      pass = "";
+      for(x=0;x<length;x++)
+      {
+        i = Math.floor(Math.random() * 62);
+        pass += chars.charAt(i);
+      }
+      return pass;
+    }
+    function formSubmit()
+    {
+
+      document.getElementById("passwordField").value = randomPassword(6);
+      return false;
+    }
+    </script>
+
+
     <section id="page-breadcrumb">
         <div class="vertical-center sun">
              <div class="container">
@@ -38,24 +62,29 @@
                     <div class="action">
                       <div class="col-md-6 col-sm-12">
                           <div class="contact-form bottom">
-                              <h2 id="sabor">Cadastro De Sabores</h2>
+                              <h2>Cadastro De Máquinas</h2>
                               <form id="main-contact-form" name="contact-form" method="post" action="sendemail.php">
+                                  <div class="form-group">
+                                      <input type="text" name="name" class="form-control" required="required" placeholder="Nome">
+                                  </div>
+                                  <div class="form-group">
+                                      <input type="email" name="email" class="form-control" required="required" placeholder="Email">
+                                  </div>
                                 <div class="row">
-                                <div class="col-md-6 col-sm-12">
-                                  <div class="form-group">
-                                      <input type="text" name="flavor" class="form-control" required="required" placeholder="Sabor">
+                                  <div class="col-md-6 col-sm-12">
+                                    <input name="passbox" type="text" tabindex="1" id="passwordField" class="form-control" placeholder="Senha">
                                   </div>
+                                    <div class="col-md-3 col-sm-12">
+                                      <button type="button" value="Gerar" onClick="javascript:formSubmit()" tabindex="2" class="btn btn-submit">Gerar</button>
+                                    </div>
+                                      <div class="col-md-3 col-sm-12">
+                                      <input type="reset" value="Limpar" tabindex="3" class="btn btn-submit">
+                                    </div>
                                 </div>
-                                  <div class="col-md-3 col-sm-12">
-                                  <div class="form-group">
-                                      <input type="number" name="price" min="0.01" step="0.01" class="form-control" required="required" placeholder="Preço">
-                                  </div>
-                                </form>
-                              </div>
                               <div class="form-group">
-                                  <input type="submit" name="submit" class="btn btn-submit" value="Salvar">
+                                  <input type="submit" name="submit" class="btn btn-submit" value="Submit">
                               </div>
-
+                            </form>
                           </div>
                       </div>
                     </div>
@@ -74,7 +103,6 @@
     <script type="text/javascript" src="js/main.js"></script>
     <script type="text/javascript" src="js/map.js"></script>
     <script type="text/javascript" src="js/headerfooter.js"></script>
-
 
 </body>
 </html>
