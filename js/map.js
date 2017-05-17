@@ -6,6 +6,13 @@ var D = {lat: -16.244184, lng: -47.911176}
 var E = {lat: -16.234184, lng: -47.900076}
 var F = {lat: -16.264184, lng: -47.967176}
 
+var machinesJSON = $.get('https://picole-pi2.herokuapp.com/machines/', function(data) { locationsFromMachine(data);});
+
+
+function locationsFromMachine(machine){
+
+}
+
 //inicia o mapa
 function initMap() {
   var directionsService = new google.maps.DirectionsService;
