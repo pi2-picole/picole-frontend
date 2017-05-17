@@ -28,32 +28,8 @@
 
 <body>
     <!-- #header-->
-      <div class="header"></div>
+      <div class="headerAdmin"></div>
     <!--/#header-->
-
-    <BODY>
-
-    <SCRIPT LANGUAGE="JavaScript">
-
-    function randomPassword(length)
-    {
-      chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-      pass = "";
-      for(x=0;x<length;x++)
-      {
-        i = Math.floor(Math.random() * 62);
-        pass += chars.charAt(i);
-      }
-      return pass;
-    }
-    function formSubmit()
-    {
-
-      document.getElementById("passwordField").value = randomPassword(6);
-      return false;
-    }
-    </script>
-
 
     <section id="page-breadcrumb">
         <div class="vertical-center sun">
@@ -64,23 +40,16 @@
                           <div class="contact-form bottom">
                               <h2>Cadastro De Máquinas</h2>
                               <form id="main-contact-form" name="contact-form" method="post" action="sendemail.php">
+                                  <div class="col-md-6 col-sm-12">
                                   <div class="form-group">
                                       <input type="text" name="name" class="form-control" required="required" placeholder="Nome">
                                   </div>
+                                  </div>
+                                  <div class="col-md-3 col-sm-12">
                                   <div class="form-group">
-                                      <input type="email" name="email" class="form-control" required="required" placeholder="Email">
+                                      <input type="number" name="numero" class="form-control" required="required" placeholder="Número">
                                   </div>
-                                <div class="row">
-                                  <div class="col-md-6 col-sm-12">
-                                    <input name="passbox" type="text" tabindex="1" id="passwordField" class="form-control" placeholder="Senha">
                                   </div>
-                                    <div class="col-md-3 col-sm-12">
-                                      <button type="button" value="Gerar" onClick="javascript:formSubmit()" tabindex="2" class="btn btn-submit">Gerar</button>
-                                    </div>
-                                      <div class="col-md-3 col-sm-12">
-                                      <input type="reset" value="Limpar" tabindex="3" class="btn btn-submit">
-                                    </div>
-                                </div>
                               <div class="form-group">
                                   <input type="submit" name="submit" class="btn btn-submit" value="Submit">
                               </div>
