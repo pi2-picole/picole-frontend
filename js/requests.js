@@ -7,11 +7,11 @@ jQuery.get('https://picole-pi2.herokuapp.com/machines/1', function(data) {
     }
   });
 
-  $.post("https://picole-pi2.herokuapp.com/popsicles/" ,
+  jQuery.post("https://picole-pi2.herokuapp.com/popsicles/" ,
      	 	{
             "id": 6,
-            "flavor": "POST",
-            "price": "1.00",
+            "flavor": "TRYING",
+            "price": "1.50",
             "is_active": true
           }
 
