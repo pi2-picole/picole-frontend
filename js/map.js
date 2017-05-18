@@ -1,41 +1,46 @@
 var posCORRETA = {}
-var directionsService = new google.maps.DirectionsService;
-var directionsDisplay = new google.maps.DirectionsRenderer;
-var map = new google.maps.Map(document.getElementById('gmap'), {
-  zoom: 10,
-  center: {lat: -15.793879, lng: -47.882760},
-});
 
+function locationsFromMachine(machine,map){
+  var location = {}
+  var latitude = 0
+  var longitude = 0
 
-var machinesLocation = $.get('https://picole-pi2.herokuapp.com/machines/', function(data) { locationsFromMachine(data);});
-
-function locationsFromMachine(machine){
-  console.log(machine)
-  for (data in machine){
-    putMarkerInMap(map,data.location)
+  for (var i=0; i < machine.length; i++){
+    latitude = machine[i].location.latitude
+    longitude = machine[i].location.longitude
+     location = {lat: latitude, lng: longitude}
+    putMarkerInMap(map, location)
   }
 }
 
 function putMarkerInMap(map, position){
+
   var marker = new google.maps.Marker({
       position: position,
       map: map,
       title: 'B'
     });
 
-    //abre modal quando clica no marcador
-  google.maps.event.addListener(marker, 'click', function() {
-    $('#myModal').modal('show')
-  });
-return marker
+//   //abre modal quando clica no marcador
+//   google.maps.event.addListener(marker, 'click', function() {
+//     $('#myModal').modal('show')
+//   });
+// return marker
+
 }
 
 //inicia o mapa
 function initMap() {
+  var directionsService = new google.maps.DirectionsService;
+  var directionsDisplay = new google.maps.DirectionsRenderer;
+  var map = new google.maps.Map(document.getElementById('gmap'), {
+    zoom: 10,
+    center: {lat: -15.793879, lng: -47.882760},
+  });
 
   directionsDisplay.setMap(map);
-
-  putMarkerInMap(map)
+  
+  var machinesLocation = $.get('https://picole-pi2.herokuapp.com/machines/', function(data) { locationsFromMachine(data,map);});
 
   var onChangeHandler = function() {
     calculateAndDisplayRoute(directionsService, directionsDisplay);
