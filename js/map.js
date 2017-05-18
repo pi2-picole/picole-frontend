@@ -6,8 +6,9 @@ function locationsFromMachine(machine,map){
       lat: Number(machine[i].location.latitude),
       lng: Number(machine[i].location.longitude)
     };
-    console.log(location)
+    var machineName = machine[i].label
     putMarkerInMap(map, location)
+    createSelects(location, machineName)
   }
 }
 
@@ -17,11 +18,17 @@ function putMarkerInMap(map, position){
       map: map,
       title: 'B'
     });
-
   //abre modal quando clica no marcador
   google.maps.event.addListener(marker, 'click', function() {
     $('#myModal').modal('show')
   });
+}
+
+//criar os selects dinamicamente
+function createSelects(location, machineName){
+  location = JSON.stringify(location)
+  console.log(location)
+  $('<option>').val(location).text(machineName).appendTo('#end');
 }
 
 //inicia o mapa
@@ -32,11 +39,8 @@ function initMap() {
     zoom: 10,
     center: {lat: -15.793879, lng: -47.882760},
   });
-
   directionsDisplay.setMap(map);
-  
   var machinesLocation = $.get('https://picole-pi2.herokuapp.com/machines/', function(data) { locationsFromMachine(data,map);});
-
   var onChangeHandler = function() {
     calculateAndDisplayRoute(directionsService, directionsDisplay);
   };
@@ -45,37 +49,32 @@ function initMap() {
 
   //seta balãozinho com a localização
   var infoWindow = new google.maps.InfoWindow({map: map});
-
-        // Try HTML5 geolocation.
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-            var pos = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            };
-            posCORRETA = pos
-            infoWindow.setPosition(pos);
-            infoWindow.setContent('Você está aqui!');
-            map.setCenter(pos);
-          }, function() {
-            handleLocationError(true, infoWindow, map.getCenter());
-          });
-        } else {
-          // Browser doesn't support Geolocation
-          handleLocationError(false, infoWindow, map.getCenter());
-        }
+  // Try HTML5 geolocation.
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      posCORRETA = pos
+      infoWindow.setPosition(pos);
+      infoWindow.setContent('Você está aqui!');
+      map.setCenter(pos);
+    }, function() {
+      handleLocationError(true, infoWindow, map.getCenter());
+    });
+  } else {
+    // Navegador não suporta location
+    handleLocationError(false, infoWindow, map.getCenter());
+  }
 }
 
 //caso não consiga pegar a localização do usuário ou ele se recuse a permitir 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-        infoWindow.setPosition(pos);
-        infoWindow.setContent(browserHasGeolocation ?
-                              'Error: The Geolocation service failed.' :
-                              'Error: Your browser doesn\'t support geolocation.');
+  infoWindow.setPosition(pos);
+  infoWindow.setContent(browserHasGeolocation ? 'Erro, não foi possível pegar sua localizaçãoa atual' : 'Atualize o navegador para user esse recurso');
 }
-
-
-//calcula a rota, tem que adicionar os outros tipos de travelMode
+//calculo da rota - posicao atual até a maquina escolhida
 function calculateAndDisplayRoute(directionsService, directionsDisplay) {
   var destinationString = document.getElementById('end').value
   eval('var end='+destinationString)
