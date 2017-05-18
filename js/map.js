@@ -1,32 +1,27 @@
 var posCORRETA = {}
 
 function locationsFromMachine(machine,map){
-  var location = {}
-  var latitude = 0
-  var longitude = 0
-
   for (var i=0; i < machine.length; i++){
-    latitude = machine[i].location.latitude
-    longitude = machine[i].location.longitude
-     location = {lat: latitude, lng: longitude}
+    var location = {
+      lat: Number(machine[i].location.latitude),
+      lng: Number(machine[i].location.longitude)
+    };
+    console.log(location)
     putMarkerInMap(map, location)
   }
 }
 
 function putMarkerInMap(map, position){
-
   var marker = new google.maps.Marker({
       position: position,
       map: map,
       title: 'B'
     });
 
-//   //abre modal quando clica no marcador
-//   google.maps.event.addListener(marker, 'click', function() {
-//     $('#myModal').modal('show')
-//   });
-// return marker
-
+  //abre modal quando clica no marcador
+  google.maps.event.addListener(marker, 'click', function() {
+    $('#myModal').modal('show')
+  });
 }
 
 //inicia o mapa
