@@ -7,23 +7,23 @@ function locationsFromMachine(machine,map){
       lat: Number(machine[i].location.latitude),
       lng: Number(machine[i].location.longitude)
     };
-
     var machineName = machine[i].label
 
-    putMarkerInMap(map, location, machineName)
+    putMarkerInMap(map, location, machine[i])
     createSelects(location, machineName)
-    getFlavorFromMachine(machine[i].stocks)
+    getFlavorFromMachine(machine[i].stocks, machineName)
   }
 }
 
-function putMarkerInMap(map, position, machineName){
+function putMarkerInMap(map, position, machine){
   var marker = new google.maps.Marker({
       position: position,
       map: map,
-      title: machineName
+      title: machine.label
     });
   //abre modal quando clica no marcador
   google.maps.event.addListener(marker, 'click', function() {
+    getFlavorFromMachine(machine.stocks, machine.label)
     $('#myModal').modal('show')
   });
 }
@@ -34,12 +34,17 @@ function createSelects(location, machineName){
   $('<option>').val(location).text(machineName).appendTo('#end');
 }
 
-function getFlavorFromMachine(machine){
-  for(var i=0; i<machine.length; i++){
-    var flavorMachine = machine[i].popsicle.flavor
-    $('<span id=flavor>').val(location).text(flavorMachine).appendTo('#end');
-    document.getElementById('flavor').innerHTML = flavorMachine
+//associa os dabores as suas respectivas máquinas
+function getFlavorFromMachine(stocks, machineName){
+  for(var i=0; i<stocks.length; i++){
+    if(stocks[i].popsicle !== null){
+      var flavorMachine = stocks[i].popsicle.flavor  
+      document.getElementById('flavor'+i).innerHTML = flavorMachine
+    }else{
+      console.log('Nem todas as máquinas tem sabores!')
+    }
   }
+   document.getElementById('myModalLabel').innerHTML = machineName
 }
 
 //inicia o mapa
@@ -51,17 +56,15 @@ function initMap() {
     zoom: 10,
     center: {lat: -15.793879, lng: -47.882760},
   });
-
+  getCurrentLocation(map)
   directionsDisplay.setMap(map);
   $.get('https://picole-pi2.herokuapp.com/machines/', function(data) { locationsFromMachine(data,map);});
-
   var onChangeHandler = function() {
     calculateAndDisplayRoute(directionsService, directionsDisplay);
   };
   document.getElementById('end').addEventListener('change', onChangeHandler);
   document.getElementById('mode').addEventListener('change', onChangeHandler);
 
-  getCurrentLocation(map)
 }
 
 function getCurrentLocation(map){
