@@ -7,8 +7,9 @@ function locationsFromMachine(machine,map){
       lat: Number(machine[i].location.latitude),
       lng: Number(machine[i].location.longitude)
     };
+
     var machineName = machine[i].label
-    console.log(machine[i].label)
+
     putMarkerInMap(map, location, machineName)
     createSelects(location, machineName)
     getFlavorFromMachine(machine[i].stocks)
@@ -34,10 +35,9 @@ function createSelects(location, machineName){
 }
 
 function getFlavorFromMachine(machine){
-  console.log(machine)
   for(var i=0; i<machine.length; i++){
     var flavorMachine = machine[i].popsicle.flavor
-    $('<span id=flavor>').val(location).text(machineName).appendTo('#end');
+    $('<span id=flavor>').val(location).text(flavorMachine).appendTo('#end');
     document.getElementById('flavor').innerHTML = flavorMachine
   }
 }
