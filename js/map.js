@@ -53,7 +53,7 @@ function initMap() {
   var directionsDisplay = new google.maps.DirectionsRenderer;
 
   var map = new google.maps.Map(document.getElementById('gmap'), {
-    zoom: 10,
+    zoom: 13,
     center: {lat: -15.793879, lng: -47.882760},
   });
   getCurrentLocation(map)
