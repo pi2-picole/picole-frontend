@@ -19,8 +19,9 @@ function putMarkerInMap(map, position, machine){
   var marker = new google.maps.Marker({
       position: position,
       map: map,
-      title: machine.label
-    });
+      title: machine.label,
+      icon: 'images/popsicle-map.png'   
+     });
   //abre modal quando clica no marcador
   google.maps.event.addListener(marker, 'click', function() {
     getFlavorFromMachine(machine.stocks, machine.label)
@@ -86,7 +87,9 @@ function getCurrentLocation(map){
       var marker = new google.maps.Marker({
         position: currentLocation,
         map: map,
-        title:'Você está aqui'
+        title:'Você está aqui',
+       icon: 'images/user-map.png'   
+
       });
     }, function() {
       handleLocationError(true, infoWindow, map.getCenter());

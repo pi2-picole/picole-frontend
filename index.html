@@ -11,6 +11,7 @@
       <link href="css/animate.min.css" rel="stylesheet">
       <link href="css/lightbox.css" rel="stylesheet">
       <link href="css/main.css" rel="stylesheet">
+      <link href="css/animated.css" rel="stylesheet">
 			<link href="css/quantity.css" rel="stylesheet">
       <link href="css/responsive.css" rel="stylesheet">
       <script type="text/javascript" src="js/jquery.js"></script>
@@ -194,7 +195,7 @@
          </section>
          <!-- TEEEEEEETSE -->
          <div class="modal fade" id="cardModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-         <!--#MODAL PICOLES-->
+         <!--#MODAL CARTÃO-->
          <div class="modal-dialog">
          <div class="modal-content">
          <div class="modal-header">
@@ -248,12 +249,31 @@
                </div>
                <div class="modal-footer">
                   <a href="#" type="button" class="btn btn-common" data-dismiss="modal">Fechar</a>
-                  <a href="#" type="button" class="btn btn-common" data-dismiss="modal" data-toggle="modal" data-target="cardModal" >Concluir</a>
+                  <a href="#" type="button" class="btn btn-common" data-dismiss="modal" data-toggle="modal" data-target="freeModal">Liberar</a>
                </div>
                <!--/#map-section-->
             </div>
          </div>
-      </section>
+
+         <div class="modal fade" id="freeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+         <!--#MODAL LIBERAR-->
+         <div class="modal-dialog">
+         <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fechar</span></button>
+            <h4 class="modal-title" id="myModalLabel">Finalizar Compra</h4>
+         </div>
+         <div class="modal-body">
+            <div class="button-free">
+              <h2>Liberar picolé</h2>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <a href="#" type="button" class="btn btn-common" data-dismiss="modal">Fechar</a>
+            <a href="#" type="button" class="btn btn-common" data-dismiss="modal" data-toggle="modal" data-target="cardModal" >Concluir</a>
+          </div>
+      </div>
+    </div>
       <!--/#services-->
       <section id="action" class="responsive">
          <div class="vertical-center">
