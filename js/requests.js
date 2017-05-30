@@ -15,11 +15,13 @@ function postStorage(){
 
 function postFlavor() {
 
+  var flavor = $('#flavor').val();
+  var price = $('#price').val();
+
   jQuery.post("https://picole-pi2.herokuapp.com/popsicles/" ,
  	{
-        "id": 6,
-        "flavor": "TRYING",
-        "price": "150",
+        "flavor": flavor,
+        "price": price,
         "is_active": true
   })
 }
