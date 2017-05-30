@@ -5,7 +5,15 @@ $(document).ready(function(){
       $('#sabor-'+ i).text(data.stocks[i].popsicle.flavor);
       $('#quantity-'+ i).val(data.stocks[i].amount);
     }
+
   });
+})
+
+function postStorage(){
+
+}
+
+function postFlavor() {
 
   jQuery.post("https://picole-pi2.herokuapp.com/popsicles/" ,
  	{
@@ -13,9 +21,18 @@ $(document).ready(function(){
         "flavor": "TRYING",
         "price": "150",
         "is_active": true
-      }
-  )
-})
+  })
+}
+
+function postMachine(){
+
+}
+
+function postVendor(){
+
+}
+
+
 
 
 function login(){
@@ -27,8 +44,6 @@ function login(){
   {
     "password": password,
     "username": username,
-
-    
   })
 
   console.log("Username : " + username + password);
