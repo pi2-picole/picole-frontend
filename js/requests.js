@@ -82,8 +82,8 @@ function postVendor(){
       "username": vendorUsername,
       "email": vendorEmail,
       "is_staff": true,
-      "is_active": true,
-    }
+      "is_active": true
+    },
     type: "POST",
     // beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Token <TOKEN AQUI>');},
     success: function() { alert('Sucessoo!' ); },
@@ -108,14 +108,14 @@ function login(){
     url: "https://picole-pi2.herokuapp.com/users/login/",
     data: {
       "password": password,
-      "username": username,
+      "username": username
     },
     type: "POST",
     // beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Token <TOKEN AQUI>');},
     success: function() { alert('Sucesso!' ); },
     error: function() { alert('Erro!'); },
     complete: function(data){
-       alert(data);
+       alert(data.responseText);
     }
 
 });
