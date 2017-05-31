@@ -24,8 +24,12 @@
     "surge": "^0.19.0"
   },
   "git": {
-  "scripts": {
-    "pre-push": "surge --project ./ --domain picole.surge.sh"
+    "scripts": {
+      "pre-push": "surge --project ./ --domain picole.surge.sh"
+    }
+  },
+  "dependencies": {
+    "git-scripts": "^0.2.1",
+    "surge": "^0.19.0"
   }
-}
 }
