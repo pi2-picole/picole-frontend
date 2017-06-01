@@ -2,15 +2,17 @@ var currentLocation = {}
 var selectedLocation = {}
 
 function locationsFromMachine(machine,map){
+
+
   for (var i=0; i < machine.length; i++){
     var location = {
-      lat: Number(machine[i].location.latitude),
-      lng: Number(machine[i].location.longitude)
+      lat: Number(machine[i].location.lat),
+      lng: Number(machine[i].location.lng)
     };
     var machineName = machine[i].label
-
     putMarkerInMap(map, location, machine[i])
     createSelects(location, machineName)
+    console.log(machine[i].stocks)
     getFlavorFromMachine(machine[i].stocks, machineName)
   }
 }
@@ -39,7 +41,7 @@ function createSelects(location, machineName){
 function getFlavorFromMachine(stocks, machineName){
   for(var i=0; i<stocks.length; i++){
     if(stocks[i].popsicle !== null){
-      var flavorMachine = stocks[i].popsicle.flavor  
+      var flavorMachine = stocks[i].popsicle  
       document.getElementById('flavor'+i).innerHTML = flavorMachine
     }else{
       console.log('Nem todas as máquinas tem sabores!')
