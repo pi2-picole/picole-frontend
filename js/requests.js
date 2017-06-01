@@ -70,10 +70,8 @@ function postVendor(){
     url: "https://picole-pi2.herokuapp.com/users/",
     data: {
       "password": vendorPassword,
-      "username": vendorUsername,
-      "email": vendorEmail,
-      "is_staff": true,
-      "is_active": true
+      "username": vendorUsername
+      // "email": vendorEmail,
     },
     type: "POST",
     
@@ -81,8 +79,9 @@ function postVendor(){
       var token = Cookies.get('token');
       xhr.setRequestHeader('Authorization', 'Token ' + token);
     },
-    success: function() { alert('Sucessoo!' ); },
-    error: function() { alert('Erro!'); }
+    success: function() { alert('Sucesso!' ); },
+    error: function(erro) { alert('Erro!'); 
+  console.log(erro);}
 });
 
 
@@ -100,17 +99,27 @@ function login(){
       "username": username
     },
     type: "POST",
-    success: function() { alert('Sucesso!' ); },
-    error: function() { alert('Erro!'); },
-    complete: function(data){
-       var text = JSON.parse(data.responseText);
-       var token = text.token;
-       Cookies.set("token", token);
 
+
+    success: function(data) { 
+      alert('Sucesso!' );
+      console.log(data)
+      // var text = JSON.parse(data.responseText);
+       var token = data.token;
+       var type = data.is_staff;
+       if(type)
+          window.location.replace("/admin.html"); 
+      else 
+          window.location.replace("/vendorArea.html"); 
+
+       Cookies.set("token", token);
+       console.log(text);
+    },
+    error: function() { alert('Login/Senha não cadastrados. Tente Novamente.!'); },
+    complete: function(data){
        
-       console.log(token);
     },
 });
 
-  console.log("Username : " + username + password);
+  // console.log("Username : " + username + password);
 }
