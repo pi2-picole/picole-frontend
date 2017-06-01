@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Coming Soon | Triangle</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet"> 
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/responsive.css" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+        <script src="js/html5shiv.js"></script>
+        <script src="js/respond.min.js"></script>
+    <![endif]-->       
+    <link rel="shortcut icon" href="images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+</head><!--/head-->
+
+<body>
+    <div class="logo-image">                                
+       <a href="index.html" class="text-button"> πcolé </a> 
+    </div>
+     <section id="coming-soon">        
+         <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2">                    
+                    <div class="text-center coming-content">
+                        <a href="#aboutModal" data-toggle="modal" data-target="#myModal" class="btn btn-circle-lg btn-success"><span class="glyphicon glyphicon-ok"></span> </a>
+                    </div>                    
+                </div>
+                <div class="col-sm-12">
+                    <div class="time-count">
+                        <ul id="countdown">
+                            <p class="text-button">Expira em:</p>
+                            <li class="angle-two">
+                                <span class="hours time-font">02</span>
+                                <p>Hours</p>
+                            </li>
+                            <li class="angle-one">
+                                <span class="minutes time-font">36</span>
+                                <p class="minute">Mins</p>
+                            </li>                            
+                            <li class="angle-two">
+                                <span class="seconds time-font">48</span>
+                                <p>Secs</p>
+                            </li>               
+                        </ul>   
+                    </div>
+                </div>
+            </div>
+        </div>       
+    </section>
+    <section id="coming-soon-footer" class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="text-center">
+                    <p>&copy; πcolé 2017. Todos os direitos reservados.</p>
+                </div>
+            </div>
+        </div>       
+    </section>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                    <h4 class="modal-title" id="myModalLabel">Hello There!</h4>
+                    </div>
+                <div class="modal-body">
+                    <center>
+                    <br>
+                    <h3 class="media-heading">Yep, they work.</h3>
+                    </center>
+                </div>
+                <div class="modal-footer">
+                    <center>
+                    <button type="button" class="btn btn-circle btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></button>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/wow.min.js"></script>
+    <script type="text/javascript" src="js/coundown-timer.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript">
+        //Countdown js
+        $("#countdown").countdown({
+            date: "10 march 2015 12:00:00",
+            format: "on"
+        },      
+        function() {
+            // callback function
+        });
+    </script>
+    
+</body>
+</html>

@@ -89,8 +89,10 @@
             <div id="gmap"></div>
             <script async defer
                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtffISUN383_UIqNuhIsT5rzlXuiGRQw0&callback=initMap"></script>
+            </section>
+
+           <!--#MODAL PICOLES-->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <!--#MODAL PICOLES-->
             <div class="modal-dialog">
             <div class="modal-content">
                <div class="modal-header">
@@ -193,9 +195,9 @@
                </div>
             </div>
          </section>
-         <!-- TEEEEEEETSE -->
-         <div class="modal fade" id="cardModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-         <!--#MODAL CARTÃO-->
+
+     <!--#MODAL CARTÃO-->
+      <div class="modal fade" id="cardModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
          <div class="modal-dialog">
          <div class="modal-content">
          <div class="modal-header">
@@ -249,31 +251,35 @@
                </div>
                <div class="modal-footer">
                   <a href="#" type="button" class="btn btn-common" data-dismiss="modal">Fechar</a>
-                  <a href="#" type="button" class="btn btn-common" data-dismiss="modal" data-toggle="modal" data-target="freeModal">Liberar</a>
+                  <a href="#" id="openButton" type="button" class="btn btn-common" data-dismiss="modal" data-toggle="modal" data-target="freeModal" >Concluir Compra</a>
                </div>
                <!--/#map-section-->
             </div>
          </div>
-
-         <div class="modal fade" id="freeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-         <!--#MODAL LIBERAR-->
-         <div class="modal-dialog">
-         <div class="modal-content">
-         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fechar</span></button>
-            <h4 class="modal-title" id="myModalLabel">Finalizar Compra</h4>
-         </div>
-         <div class="modal-body">
-            <div class="button-free">
-              <h2>Liberar picolé</h2>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <a href="#" type="button" class="btn btn-common" data-dismiss="modal">Fechar</a>
-            <a href="#" type="button" class="btn btn-common" data-dismiss="modal" data-toggle="modal" data-target="cardModal" >Concluir</a>
-          </div>
       </div>
     </div>
+  </div>
+ <!-- MODAL FREE -->
+
+  <div class="modal fade" id="freeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fechar</span></button>
+        <h4 class="modal-title" id="myModalLabel">Liberar</h4>
+    </div>
+    <div class="modal-body">
+      <button class="button-free btn btn-commo">Liberar</button>
+    </div>
+    </div>
+          <div class="modal-footer">
+            <a href="#" type="button" class="btn btn-common" data-dismiss="modal">Fechar</a>
+            <a href="#" type="button" class="btn btn-common" data-dismiss="modal">Concluir</a>
+          </div>
+          <!--/#map-section-->
+      </div>
+    </div>
+
       <!--/#services-->
       <section id="action" class="responsive">
          <div class="vertical-center">

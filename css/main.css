@@ -2619,3 +2619,27 @@ span.stButton_gradient,
 .credit-card-div .pad-adjust {
     padding-top:10px;
 }
+.btn-circle-lg {
+  width: 79px;
+  height: 79px;
+  text-align: center;
+  padding: 13px 0;
+  font-size: 30px;
+  line-height: 2.00;
+  border-radius: 70px;
+}
+.btn-circle {
+  width: 49px;
+  height: 49px;
+  text-align: center;
+  padding: 5px 0;
+  font-size: 20px;
+  line-height: 2.00;
+  border-radius: 30px;
+}
+.text-button {
+  text-align: center;
+  font-style: normal;
+  font-size: 25px;
+  padding: 10px 10px 10px 10px;
+}

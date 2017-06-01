@@ -87,3 +87,7 @@ jQuery(function($) {'use strict';
 $('#openCard').on('click', function() {
     $('#cardModal').modal('show');
 	}); 
+
+$('#openButton').on('click', function() {
+    $('#freeModal').modal('show');
+	});

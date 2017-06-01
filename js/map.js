@@ -19,8 +19,8 @@ function putMarkerInMap(map, position, machine){
   var marker = new google.maps.Marker({
       position: position,
       map: map,
-      title: machine.label,
-      icon: 'images/popsicle-map.png'   
+      title: machine.label
+      // icon: 'images/popsicle-map.png'   
      });
   //abre modal quando clica no marcador
   google.maps.event.addListener(marker, 'click', function() {
@@ -35,7 +35,7 @@ function createSelects(location, machineName){
   $('<option>').val(location).text(machineName).appendTo('#end');
 }
 
-//associa os dabores as suas respectivas máquinas
+//associa os sabores as suas respectivas máquinas
 function getFlavorFromMachine(stocks, machineName){
   for(var i=0; i<stocks.length; i++){
     if(stocks[i].popsicle !== null){
