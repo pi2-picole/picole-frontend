@@ -25,8 +25,8 @@ function putMarkerInMap(map, position, machine){
   var marker = new google.maps.Marker({
       position: position,
       map: map,
-      title: machine.label
-      // icon: 'images/popsicle-map.png'   
+      title: machine.label,
+      icon: 'images/popsicle-map.png'   
      });
   //abre modal quando clica no marcador
   google.maps.event.addListener(marker, 'click', function() {
