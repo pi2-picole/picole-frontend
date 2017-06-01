@@ -5,14 +5,18 @@ function locationsFromMachine(machine,map){
 
 
   for (var i=0; i < machine.length; i++){
-    var location = {
-      lat: Number(machine[i].location.lat),
-      lng: Number(machine[i].location.lng)
-    };
+    if (machine[i].location === null) {
+      console.log("Há máquinas sem locations")
+    }else{
+      var location = {
+        lat: Number(machine[i].location.lat),
+        lng: Number(machine[i].location.lng)
+       };
+    }
+    
     var machineName = machine[i].label
     putMarkerInMap(map, location, machine[i])
     createSelects(location, machineName)
-    console.log(machine[i].stocks)
     getFlavorFromMachine(machine[i].stocks, machineName)
   }
 }
