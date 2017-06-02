@@ -36,7 +36,7 @@
                 </div>
                 <div class="col-sm-12">
                     <div class="time-count">
-                        <ul>
+                        <ul id="countdown">
                             <p id="expire" class="text-button">Expira em:</p>
                             <li class="angle-two">
                                 <span id="hour" class="hours time-font"></span>
@@ -67,23 +67,22 @@
     </section>
 
     <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-                    <h4 class="modal-title" id="myModalLabel">Hello There!</h4>
-                    </div>
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fechar</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Liberar picolé</h4>
+                </div>
                 <div class="modal-body">
                     <center>
                     <br>
-                    <h3 class="media-heading">Yep, they work.</h3>
+                    <h3 class="media-heading">Essa ação não pode ser desfeita, confirma a liberação?</h3>
                     </center>
                 </div>
                 <div class="modal-footer">
-                    <center>
-                    <button type="button" class="btn btn-circle btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></button>
-                    </center>
+                    <a href="#" type="button" class="btn btn-common" data-dismiss="modal">Cancelar</a>
+                    <a href="#" type="button" class="btn btn-common" data-dismiss="modal"  onClick="expire()">Confirmar</a>
                 </div>
             </div>
         </div>
@@ -95,16 +94,6 @@
     <script type="text/javascript" src="js/wow.min.js"></script>
     <script type="text/javascript" src="js/coundown-timer.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
-    <script type="text/javascript">
-        //Countdown js
-        $("#countdown").countdown({
-            date: "10 march 2015 12:00:00",
-            format: "on"
-        },      
-        function() {
-            // callback function
-        });
-    </script>
     
 </body>
 </html>

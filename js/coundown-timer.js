@@ -31,3 +31,9 @@ var x = setInterval(function() {
         document.getElementById("expire").innerHTML = "EXPIRADO";
     }
 }, 1000);
+
+function expire() {
+    console.log("clicou")
+    clearInterval(x);
+    document.getElementById("expire").innerHTML = "EXPIRADO";
+}

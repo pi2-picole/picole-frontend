@@ -95,4 +95,23 @@ var quantitiy=0;
                 $('#quantity5').val(quantity - 1);
             }
     });
+        $('#button6-plus').click(function(e){
+        
+        // Stop acting like a button
+        e.preventDefault();
+        // Get the field name
+        var quantity = parseInt($('#quantity6').val());
+                    
+            $('#quantity6').val(quantity + 1);        
+    });
+     $('#button6-minus').click(function(e){
+        // Stop acting like a button
+        e.preventDefault();
+        // Get the field name
+        var quantity = parseInt($('#quantity6').val());
+                    // Increment
+            if(quantity>0){
+                $('#quantity5').val(quantity - 1);
+            }
+    });
 });
