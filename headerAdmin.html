@@ -1,3 +1,6 @@
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="/js/logout.js"></script>
+
 <header id="header">
       <div class="container">
           <div class="row">
@@ -34,12 +37,15 @@
                       <li><a href="flavors.html">Sabores</a></li>
                       <li><a href="charts.html">Relatórios</a></li>
 
+
                       <li class="dropdown active"><a href="#">Páginas<i class="fa fa-angle-down"></i></a>
                           <ul role="menu" class="sub-menu">
                              <li><a href="aboutus.html">Sobre</a></li>
                               <li><a href="services.html">Serviços</a></li>
                               <li><a href="contact.html">Contato</a></li>                              
                               <li><a href="login.html">Login</a></li>
+                              <li><a id="logout" onClick="logout()">Logout</a></li>
+
                           </ul>
                       </li>
                   </ul>
