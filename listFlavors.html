@@ -15,6 +15,12 @@
     <link href="css/responsive.css" rel="stylesheet">
     <link href="css/map.css" rel="stylesheet">
 
+    <link rel="shortcut icon" href="images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/wow.min.js"></script>
@@ -34,9 +40,9 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body>
+  <body onload="populateTable()">
 
-          <div class="header"></div>
+<div class="header"></div>
 
     <div class="container">
       <div class="row">
@@ -44,10 +50,10 @@
           <h2>Picolés</h2>
         </div><!--// .col-md-6 -->
       </div><!--// .row -->
-
+      
       <div class="row">
         <div class="col-md-6">
-          <table id="bookTable" class="table table-bordered table-condensed table-striped">
+          <table id="flavorsTable" class="table table-bordered table-condensed table-striped">
             <thead>
               <tr>
                 <th>Sabor</th>
@@ -65,17 +71,17 @@
             <div class="panel-body">
               <form>
                 <div class="form-group">
-                  <label for="title">Sabor</label>
-                  <input type="text" name="title" id="book_title" class="form-control input-lg" placeholder="Título do Livro">
+                  <label for="flavor">Sabor</label>
+                  <input type="text" name="title" id="flavor" class="form-control input-lg" placeholder="Sabor">
                 </div>
 
                 <div class="form-group">
-                  <label for="author">Preço</label>
-                  <input type="text" name="author" id="book_author" class="form-control input-lg" placeholder="Nome do Autor">
+                  <label for="price">Preço</label>
+                  <input type="number" name="price" id="price" class="form-control input-lg" placeholder="Preço">
                 </div>
 
                 <div class="form-group">
-                  <button type="button" id="updateButton" onclick="bookUpdate();" class="btn btn-submit">
+                  <button type="button" id="updateButton" onclick="Update()" class="btn btn-submit">
                     Adicionar Picolé
                   </button>
                 </div>
@@ -92,79 +98,104 @@
       // Próximo ID para adicionar um novo livro
       var _nextId = 1;
       // ID do livro que está sendo editado
-      var _activeId = 0;
+      _activeId = "";
 
+      lastId = "";
 
       function formClear(){
-        $("#book_title").val("");
-        $("#book_author").val("");
-        $("#book_publisher").val("");
+        $("#flavor").val("");
+        $("#price").val("");
       }
 
-      function bookBuildTableRow(i, data){
+      function populateTable (){
 
-        for(i=0; i<data.length; i++){
-        var row = "<tr>" +
-          "<td>" + $("#book_title").val() + "</td>" +
-          "<td>" + $("#book_author").val() + "</td>" +
-          "<td>" +
-            "<button type='button' " +
-              "onclick='bookDisplay(this);' " +
-              "class='btn btn-default'" +
-              "data-id='" + id + "'>" +
-              "<span class='glyphicon glyphicon-edit'></span>" +
-            "</button>" +
-          "</td>" +
-          "<td>" +
-            "<button type='button' " +
-              "onclick='bookDelete(this);' " +
-              "class='btn btn-default'" +
-              "data-id='" + id + "'>" +
-              "<span class='glyphicon glyphicon-remove'></span>" +
-            "</button>" +
-          "</td>" +
-        "</tr>"
+        $("#flavorsTable").append("<tbody></tbody>");
+
+        jQuery.get('https://picole-pi2.herokuapp.com/popsicles/', function(data) {
+          lastID = data.length;
+            for(let i=0; i<data.length; i++){ 
+                $("#flavorsTable tbody").append(BuildTableRow(data[i].flavor, data[i].price, data[i].id));
+              }
+          });
       }
+
+      function BuildTableRow(flavor, price, id){
+            var row = "<tr>" +
+              "<td>" + flavor + "</td>" +
+              "<td>" + price + "</td>" +
+              "<td>" +
+                "<button type='button' " +
+                  "onclick='Display(this);' " +
+                  "class='btn btn-default'" +
+                  "data-id='" + id + "'>" +
+                  "<span class='glyphicon glyphicon-edit'></span>" +
+                "</button>" +
+              "</td>" +
+              "<td>" +
+                "<button type='button' " +
+                  "onclick='Delete(this);' " +
+                  "class='btn btn-default'" +
+                  "data-id='" + id + "'>" +
+                  "<span class='glyphicon glyphicon-remove'></span>" +
+                "</button>" +
+              "</td>" +
+            "</tr>"
         return row;
       }
 
-      function bookAddToTable(){
+      function AddToTable(){
         // Primeiro verifica se a tag <tbody> existe. Adiciona um caso não exista
-        if ($("#bookTable tbody").length == 0){
-          $("#bookTable").append("<tbody></tbody>");
+        if ($("#flavorsTable tbody").length == 0){
+          $("#flavorsTable").append("<tbody></tbody>");
         }
 
         // Adiciona Livro na Tabela
-        $("#bookTable tbody").append(bookBuildTableRow(_nextId));
+        var flavor = $("#flavor").val();
+        console.log(flavor);
+        var price = $("#price").val();
+        postFlavor();
+        $("#flavorsTable tbody").append(BuildTableRow(flavor, price, lastID));
 
-        // Incrementamos o nextId
-        _nextId += 1;
+        
+
+        // // Incrementamos o nextId
+        // _nextId += 1;
       }
 
-      function bookDelete(button_delete){
+      function Delete(button_delete){
+        var row = $(button_delete).parents("tr");
+        console.log(row);
+        var cols = row.children("td");
+        console.log(cols);  
+        _activeId = $($(cols[2]).children("button")[0]).data("id");
+        deleteFlavor(_activeId);
         $(button_delete).parents("tr").remove();
       }
 
-      function bookDisplay(button_edit){
+      function Display(button_edit){
         var row = $(button_edit).parents("tr");
+        console.log(row);
         var cols = row.children("td");
+        console.log(cols);  
 
-        _activeId = $($(cols[3]).children("button")[0]).data("id");
-
-        $("#book_title").val($(cols[0]).text());
-        $("#book_author").val($(cols[1]).text());
-        $("#book_publisher").val($(cols[2]).text());
+        _activeId = $($(cols[2]).children("button")[0]).data("id");
+        console.log(_activeId);
+        $("#flavor").val($(cols[0]).text());
+        $("#price").val($(cols[1]).text());
 
         // Mudar o texto do Botão
         $("#updateButton").text("Atualizar");
       }
 
-      function bookUpdateInTable(id){
+      function UpdateInTable(id){
         // Encontra o livro na tabela
-        var row = $("#bookTable button[data-id='" + id + "']").parents("tr")[0];
-
+        var row = $("#flavorsTable button[data-id='" + id + "']").parents("tr")[0];
+        console.log(row);
         // Adiciona a linha modifica na tabela
-        $(row).after(bookBuildTableRow());
+        var flavor = $("#flavor").val();
+        var price = $("#price").val();
+        patchFlavor(_activeId);
+        $(row).after(BuildTableRow(flavor, price, _activeId));
 
         // Remover a linha antiga
         $(row).remove();
@@ -176,23 +207,23 @@
         $("#updateButton").text("Adicionar Livro");
       }
 
-      function bookUpdate(){
-        if ($("#book_title").val() != null && $("#book_title").val() != ''){
-          if ($("#updateButton").text() == "Actualizar"){
-            bookUpdateInTable(_activeId);
+      function Update(){
+        if ($("#flavor").val() != null && $("#flavor").val() != ''){
+          if ($("#updateButton").text() == "Atualizar"){
+            UpdateInTable(_activeId);
+            console.log("Atualizar");
           } else {
             // Adiciona o Livro na Tabela
-            bookAddToTable();
+            AddToTable();
+            console.log("Adicionar");
           }
-
           // Limpa o formulário
           formClear();
 
           // Mantém o focu no campo Título
-          $("#book_title").focus();
+          $("#flavor").focus();
         }
       }
-
 
     </script>
 

@@ -39,6 +39,45 @@ $.ajax({
 
 }
 
+function patchFlavor(_activeId) {
+  console.log("Active id " + _activeId);
+    var flavor = $('#flavor').val();
+  var price = $('#price').val();
+
+$.ajax({
+  url: "https://picole-pi2.herokuapp.com/popsicles/" + _activeId + "/",
+  data: {
+    "flavor": flavor,
+    "price": price,
+    "is_active": true
+  },
+  type: "PATCH",
+  beforeSend: function(xhr){
+    var token = Cookies.get('token');
+    xhr.setRequestHeader('Authorization', 'Token ' + token);},
+  success: function() { alert('Sucesso!' ); },
+  error: function(error) { alert(error); }
+});
+
+}
+
+function deleteFlavor(_activeId) {
+  console.log("Active id " + _activeId);
+    var flavor = $('#flavor').val();
+  var price = $('#price').val();
+
+$.ajax({
+  url: "https://picole-pi2.herokuapp.com/popsicles/" + _activeId + "/deactivate/",
+  type: "DELETE",
+  beforeSend: function(xhr){
+    var token = Cookies.get('token');
+    xhr.setRequestHeader('Authorization', 'Token ' + token);},
+  success: function() { alert('Sucesso!' ); },
+  error: function(error) { alert(error); }
+});
+
+}
+
 function postMachine(){
 
   var machineName = $('#machineName').val();
