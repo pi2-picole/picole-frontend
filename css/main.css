@@ -469,6 +469,10 @@ ul.sub-menu {
   box-shadow: none;
 }
 
+.panel-heading{
+    background-color: #d89b4e;
+}
+
 .btn-submit {
   width: 100%;
   background-color: #d89b4e;

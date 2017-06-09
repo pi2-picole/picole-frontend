@@ -3,7 +3,7 @@ $(document).ready(function(){
   jQuery.get('https://picole-pi2.herokuapp.com/machines/1', function(data) {
     for(let i=0; i<data.stocks.length; i++){
       $('#sabor-'+ i).text(data.stocks[i].popsicle);
-      console.log(data.stocks[i].popsicle)
+      // console.log(data.stocks[i].popsicle)
       $('#quantity-'+ i).val(data.stocks[i].amount);
     }
   });
@@ -51,7 +51,7 @@ function postMachine(){
       "label": machineName
     },
     type: "POST",
-    
+
     beforeSend: function(xhr){
       var token = Cookies.get('token');
       xhr.setRequestHeader('Authorization', 'Token ' + token);
@@ -77,13 +77,13 @@ function postVendor(){
       // "email": vendorEmail,
     },
     type: "POST",
-    
+
     beforeSend: function(xhr){
       var token = Cookies.get('token');
       xhr.setRequestHeader('Authorization', 'Token ' + token);
     },
     success: function() { alert('Sucesso!' ); },
-    error: function(erro) { alert('Erro!'); 
+    error: function(erro) { alert('Erro!');
   console.log(erro);}
 });
 
@@ -104,23 +104,23 @@ function login(){
     type: "POST",
 
 
-    success: function(data) { 
+    success: function(data) {
       alert('Sucesso!' );
       console.log(data)
       // var text = JSON.parse(data.responseText);
        var token = data.token;
        var type = data.is_staff;
        if(type)
-          window.location.replace("/admin.html"); 
-      else 
-          window.location.replace("/vendorArea.html"); 
+          window.location.replace("/admin.html");
+      else
+          window.location.replace("/vendorArea.html");
 
        Cookies.set("token", token);
        console.log(text);
     },
     error: function() { alert('Login/Senha não cadastrados. Tente Novamente.!'); },
     complete: function(data){
-       
+
     },
 });
 
