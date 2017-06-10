@@ -17,6 +17,8 @@ function patchStorage(){
 
 }
 
+// Flavor
+
 function postFlavor() {
 
   var flavor = $('#flavor').val();
@@ -78,6 +80,8 @@ $.ajax({
 
 }
 
+//Machine
+
 function postMachine(){
 
   var machineName = $('#machineName').val();
@@ -100,6 +104,42 @@ function postMachine(){
 });
 
 }
+
+function patchMachine(_activeId) {
+
+  var machineName = $('#machineName').val();
+  var machineNumber = $('#machineNumber').val();
+
+$.ajax({
+  url: "https://picole-pi2.herokuapp.com/machines/" + _activeId + "/",
+  data: {
+    "is_active": true,
+    "label": machineName
+  },
+  type: "PATCH",
+  beforeSend: function(xhr){
+    var token = Cookies.get('token');
+    xhr.setRequestHeader('Authorization', 'Token ' + token);},
+  success: function() { alert('Sucesso!' ); },
+  error: function(error) { alert(error.responseText); }
+});
+
+}
+
+function deleteMachine(_activeId) {
+
+$.ajax({
+  url: "https://picole-pi2.herokuapp.com/machines/" + _activeId + "/deactivate/",
+  type: "DELETE",
+  beforeSend: function(xhr){
+    var token = Cookies.get('token');
+    xhr.setRequestHeader('Authorization', 'Token ' + token);},
+  success: function() { alert('Sucesso!' ); },
+  error: function(error) { alert(error); }
+});
+
+}
+
 
 function postVendor(){
 
