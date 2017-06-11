@@ -154,8 +154,13 @@
         var flavor = $("#flavor").val();
         console.log(flavor);
         var price = $("#price").val();
-        postFlavor();
-        $("#flavorsTable tbody").append(BuildTableRow(flavor, price, lastID));
+        if(postFlavor()){
+          $("#flavorsTable tbody").append(BuildTableRow(flavor, price, lastID));
+          alert("Cadastro deu certo")
+        }
+        else {
+          alert("Cadastro de picolé não concluído");
+        }
 
 
 
@@ -195,14 +200,20 @@
         // Adiciona a linha modifica na tabela
         var flavor = $("#flavor").val();
         var price = $("#price").val();
-        patchFlavor(_activeId);
-        $(row).after(BuildTableRow(flavor, price, _activeId));
 
-        // Remover a linha antiga
-        $(row).remove();
+        if(patchFlavor(_activeId)){
+          $(row).after(BuildTableRow(flavor, price, _activeId));
 
-        // Limpar o formulário
-        formClear();
+          // Remover a linha antiga
+          $(row).remove();
+
+          // Limpar o formulário
+          formClear();
+
+        }
+        else {
+          alert("Não foi possível atualizar");
+        }
 
         // Mudar o texto do Botão
         $("#updateButton").text("Adicionar Livro");

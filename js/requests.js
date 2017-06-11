@@ -35,8 +35,19 @@ $.ajax({
   beforeSend: function(xhr){
     var token = Cookies.get('token');
     xhr.setRequestHeader('Authorization', 'Token ' + token);},
-  success: function() { alert('Sucesso!' ); },
-  error: function() { alert('Erro!'); }
+  success: function(success) { console.log(success); },
+  error: function(error) {
+
+    var response = JSON.parse(error.responseText);
+
+    if(response.flavor == "popsicle with this flavor already exists."){
+      console.log(response.flavor);
+      alert("Picolé já cadastrado.");
+    }
+    else if (response.price == "Ensure this field has no more than 4 characters."){
+      alert("Preço não deve ter mais que quatro dígitos.")
+    }
+  }
 });
 
 }
@@ -46,7 +57,7 @@ function patchFlavor(_activeId) {
     var flavor = $('#flavor').val();
   var price = $('#price').val();
 
-$.ajax({
+return $.ajax({
   url: "https://picole-pi2.herokuapp.com/popsicles/" + _activeId + "/",
   data: {
     "flavor": flavor,
@@ -197,7 +208,7 @@ function login(){
        Cookies.set("token", token);
        console.log(text);
     },
-    error: function() { alert('Login/Senha não cadastrados. Tente Novamente.!'); },
+    error: function() { alert('Login/Senha errados. Tente Novamente.!'); },
     complete: function(data){
 
     },
