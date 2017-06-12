@@ -59,6 +59,7 @@
               <tr>
                 <th>Nome</th>
                 <th>Email</th>
+                <th>Máquinas</th>
                 <th>Alterar</th>
                 <th>Deletar</th>
               </tr>
@@ -87,6 +88,11 @@
                 </div>
 
                 <div class="form-group">
+                  <label for="vendorMachines">Máquinas</label>
+                  <input type="number" name="vendorMachines" id="vendorMachines" class="form-control input-lg" placeholder="Máquinas">
+                </div>
+
+                <div class="form-group">
                   <button type="button" id="updateButton" onclick="Update()" class="btn btn-submit">
                     Adicionar Vendedor
                   </button>
@@ -112,6 +118,7 @@
         $("#vendorUsername").val("");
         $("#vendorEmail").val("");
         $("#vendorPassword").val("");
+        $("#vendorMachines").val("");
       }
 
       function populateTable (){
@@ -129,8 +136,8 @@
           success: function(data) {
             lastID = data.length;
             for(let i=0; i<data.length; i++){
-            $("#flavorsTable tbody").append(BuildTableRow(data[i].username, data[i].email, data[i].id));
-            console.log(data.responseText)
+            $("#flavorsTable tbody").append(BuildTableRow(data[i].username, data[i].email, data[i].id, data[i].machines.id));
+            console.log(data[i].machines)
 
             }
 
@@ -142,10 +149,11 @@
 
       }
 
-      function BuildTableRow(username, email, id){
+      function BuildTableRow(username, email, id, machines){
             var row = "<tr>" +
               "<td>" + username + "</td>" +
               "<td>" + email + "</td>" +
+              "<td>" + machines + "</td>" +
               "<td>" +
                 "<button type='button' " +
                   "onclick='Display(this);' " +
@@ -176,8 +184,9 @@
         var vendorUsername = $("#vendorUsername").val();
         console.log(vendorUsername);
         var vendorEmail = $("#vendorEmail").val();
+        var vendorMachines = $("#vendorMachines").val();
         postVendor();
-        $("#flavorsTable tbody").append(BuildTableRow(vendorUsername, vendorEmail, lastID));
+        $("#flavorsTable tbody").append(BuildTableRow(vendorUsername, vendorEmail, lastID, vendorMachines));
 
 
 
@@ -205,6 +214,7 @@
         console.log(_activeId);
         $("#vendorUsername").val($(cols[0]).text());
         $("#vendorEmail").val($(cols[1]).text());
+        $("#vendorMachines").val($(cols[2]).text());
 
         // Mudar o texto do Botão
         $("#updateButton").text("Atualizar");
@@ -217,8 +227,9 @@
         // Adiciona a linha modifica na tabela
         var vendorUsername = $("#vendorUsername").val();
         var vendorEmail = $("#vendorEmail").val();
+        var vendorMachines = $("#vendorMachines").val();
         patchVendor(_activeId);
-        $(row).after(BuildTableRow(vendorUsername, vendorEmail, _activeId));
+        $(row).after(BuildTableRow(vendorUsername, vendorEmail, _activeId, vendorMachines));
 
         // Remover a linha antiga
         $(row).remove();
