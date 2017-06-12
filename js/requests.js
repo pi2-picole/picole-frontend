@@ -140,11 +140,16 @@ $.ajax({
 
 }
 
+//Vendor
+function getVendor(lastID){
+
+
+}
 
 function postVendor(){
 
   var vendorUsername = $('#vendorUsername').val();
-  var vendorPassword = $('#passwordField').val();
+  var vendorPassword = $('#vendorPassword').val();
   var vendorEmail = $('#vendorEmail').val();
 
 
@@ -152,8 +157,8 @@ function postVendor(){
     url: "https://picole-pi2.herokuapp.com/users/",
     data: {
       "password": vendorPassword,
-      "username": vendorUsername
-      // "email": vendorEmail,
+      "username": vendorUsername,
+      "email": vendorEmail,
     },
     type: "POST",
 
@@ -166,6 +171,46 @@ function postVendor(){
   console.log(erro);}
 });
 
+}
+
+function patchVendor(){
+
+  var vendorUsername = $('#vendorUsername').val();
+  var vendorPassword = $('#vendorPassword').val();
+  var vendorEmail = $('#vendorEmail').val();
+
+
+  $.ajax({
+    url: "https://picole-pi2.herokuapp.com/users/" + _activeId + "/",
+    data: {
+      "password": vendorPassword,
+      "username": vendorUsername,
+      "email": vendorEmail,
+    },
+    type: "PATCH",
+
+    beforeSend: function(xhr){
+      var token = Cookies.get('token');
+      xhr.setRequestHeader('Authorization', 'Token ' + token);
+    },
+    success: function() { alert('Sucesso!' ); },
+    error: function(erro) { alert('Erro!');
+  console.log(erro);}
+});
+
+}
+
+function deleteVendor(_activeId) {
+
+$.ajax({
+  url: "https://picole-pi2.herokuapp.com/users/" + _activeId + "/",
+  type: "DELETE",
+  beforeSend: function(xhr){
+    var token = Cookies.get('token');
+    xhr.setRequestHeader('Authorization', 'Token ' + token);},
+  success: function() { alert('Sucesso!' ); },
+  error: function(error) { alert(error); }
+});
 
 }
 
