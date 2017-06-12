@@ -84,14 +84,14 @@ $.ajax({
 
 function postMachine(){
 
-  var machineName = $('#machineName').val();
-  var machineNumber = $('#machineNumber').val();
+  var label = $('#label').val();
+  var idMachine = $('#idMachine').val();
 
   $.ajax({
     url: "https://picole-pi2.herokuapp.com/machines/",
     data: {
       "is_active": true,
-      "label": machineName
+      "label": label
     },
     type: "POST",
 
@@ -99,28 +99,28 @@ function postMachine(){
       var token = Cookies.get('token');
       xhr.setRequestHeader('Authorization', 'Token ' + token);
     },
-    success: function() { alert('Sucesso!' ); },
-    error: function() { alert('Erro!'); }
+    success: function(data) { alert(data); },
+    error: function(error) { alert(error.responseText); }
 });
 
 }
 
 function patchMachine(_activeId) {
 
-  var machineName = $('#machineName').val();
-  var machineNumber = $('#machineNumber').val();
+  var label = $('#label').val();
+  var idMachine = $('#idMachine').val();
 
 $.ajax({
   url: "https://picole-pi2.herokuapp.com/machines/" + _activeId + "/",
   data: {
     "is_active": true,
-    "label": machineName
+    "label": label
   },
   type: "PATCH",
   beforeSend: function(xhr){
     var token = Cookies.get('token');
     xhr.setRequestHeader('Authorization', 'Token ' + token);},
-  success: function() { alert('Sucesso!' ); },
+  success: function(success) { alert(success); },
   error: function(error) { alert(error.responseText); }
 });
 
