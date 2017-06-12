@@ -136,9 +136,10 @@
           success: function(data) {
             lastID = data.length;
             for(let i=0; i<data.length; i++){
-            $("#flavorsTable tbody").append(BuildTableRow(data[i].username, data[i].email, data[i].id, data[i].machines.id));
-            console.log(data[i].machines)
-
+              for(let j=0; j<data[i].machines.length; j++){
+                $("#flavorsTable tbody").append(BuildTableRow(data[i].username, data[i].email, data[i].id, data[i].machines[j].id));
+                console.log(data[i].machines[j].id)
+              }
             }
 
           },
