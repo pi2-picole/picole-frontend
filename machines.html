@@ -131,7 +131,7 @@
       jQuery.get('https://picole-pi2.herokuapp.com/machines/', function(data) {
         lastID = data.length;
         for (let i = 0; i < data.length; i++) {
-          $("#flavorsTable tbody").append(BuildTableRow(data[i].label, data[i].id, data[i].seller));
+          $("#flavorsTable tbody").append(BuildTableRow(data[i].label, data[i].id, data[i].seller || ""));
           console.log(data.length);
         }
       });
