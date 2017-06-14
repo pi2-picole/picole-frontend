@@ -82,11 +82,15 @@ function postMachine() {
 
   var label = $('#label').val();
   var idMachine = $('#idMachine').val();
+  var vendorMachine = $('#vendorMachine').val();
+
 
   $.ajax({
     url: "https://picole-pi2.herokuapp.com/machines/",
     data: {
       "is_active": true,
+      "id": idMachine,
+      "seller": vendorMachine,
       "label": label
     },
     type: "POST",
@@ -109,11 +113,15 @@ function patchMachine(_activeId) {
 
   var label = $('#label').val();
   var idMachine = $('#idMachine').val();
+  var vendorMachine = $('#vendorMachine').val();
+
 
   $.ajax({
     url: "https://picole-pi2.herokuapp.com/machines/" + _activeId + "/",
     data: {
       "is_active": true,
+      "id": idMachine,
+      "seller": vendorMachine,
       "label": label
     },
     type: "PATCH",
@@ -161,6 +169,7 @@ function postVendor() {
   var vendorUsername = $('#vendorUsername').val();
   var vendorPassword = $('#vendorPassword').val();
   var vendorEmail = $('#vendorEmail').val();
+  var vendorMachines = $('#vendorMachines').val();
 
 
   $.ajax({
@@ -169,6 +178,7 @@ function postVendor() {
       "password": vendorPassword,
       "username": vendorUsername,
       "email": vendorEmail,
+      "machines": vendorMachines
     },
     type: "POST",
 
@@ -192,6 +202,7 @@ function patchVendor() {
   var vendorUsername = $('#vendorUsername').val();
   var vendorPassword = $('#vendorPassword').val();
   var vendorEmail = $('#vendorEmail').val();
+  var vendorMachines = $('#vendorMachines').val();
 
 
   $.ajax({
@@ -200,6 +211,7 @@ function patchVendor() {
       "password": vendorPassword,
       "username": vendorUsername,
       "email": vendorEmail,
+      "machines": vendorMachines
     },
     type: "PATCH",
 
@@ -211,7 +223,7 @@ function patchVendor() {
       alert('Sucesso!');
     },
     error: function(erro) {
-      alert('Erro!');
+      alert(erro.responseText);
       console.log(erro);
     }
   });
@@ -231,7 +243,7 @@ function deleteVendor(_activeId) {
       alert('Sucesso!');
     },
     error: function(error) {
-      alert(error);
+      alert(error.responseText);
     }
   });
 

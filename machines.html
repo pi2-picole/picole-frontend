@@ -121,6 +121,7 @@
     function formClear() {
       $("#label").val("");
       $("#idMachine").val("");
+      $("#vendorMachine").val("");
     }
 
     function populateTable() {
@@ -171,8 +172,9 @@
       var label = $("#label").val();
       console.log(label);
       var id = $("#idMachine").val();
+      var vendor = $("#vendorMachine").val();
       postMachine();
-      $("#flavorsTable tbody").append(BuildTableRow(label, lastID));
+      $("#flavorsTable tbody").append(BuildTableRow(label, lastID, vendor));
 
 
 
@@ -185,7 +187,7 @@
       console.log(row);
       var cols = row.children("td");
       console.log(cols);
-      _activeId = $($(cols[2]).children("button")[0]).data("id");
+      _activeId = $($(cols[3]).children("button")[0]).data("id");
       deleteMachine(_activeId);
       $(button_delete).parents("tr").remove();
     }
@@ -196,10 +198,11 @@
       var cols = row.children("td");
       console.log(cols);
 
-      _activeId = $($(cols[2]).children("button")[0]).data("id");
+      _activeId = $($(cols[3]).children("button")[0]).data("id");
       console.log(_activeId);
       $("#label").val($(cols[0]).text());
       $("#idMachine").val($(cols[1]).text());
+      $("#vendorMachine").val($(cols[2]).text());
 
       // Mudar o texto do Botão
       $("#updateButton").text("Atualizar");
