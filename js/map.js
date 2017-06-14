@@ -43,10 +43,11 @@ function createSelects(location, machineName){
 
 //associa os sabores as suas respectivas máquinas
 function getFlavorFromMachine(stocks, machineName){
-  for(var i=0; i<stocks.length; i++){
+  for(var i=0; i<5; i++){
     if(stocks[i].popsicle !== null){
-      var flavorMachine = stocks[i].popsicle  
-      document.getElementById('flavor'+i).innerHTML = flavorMachine
+      var price = stocks[i].popsicle.price
+      var flavorMachine = stocks[i].popsicle.flavor
+      document.getElementById('flavor'+i).innerHTML = flavorMachine + ' R$ ' + formatPrice(price)
     }else{
       console.log('Nem todas as máquinas tem sabores!')
     }
@@ -54,10 +55,17 @@ function getFlavorFromMachine(stocks, machineName){
    document.getElementById('myModalLabel').innerHTML = machineName
 }
 
+function formatPrice(price){
+  price = price.replace(/(\d{1})(\d{1,2})$/,"$1,$2") // coloca virgula antes dos ultimos 2 digitos
+  return price
+}
+
 //inicia o mapa
 function initMap() {
   var directionsService = new google.maps.DirectionsService;
   var directionsDisplay = new google.maps.DirectionsRenderer;
+  directionsDisplay.setOptions({suppressMarkers: true})
+
 
   var map = new google.maps.Map(document.getElementById('gmap'), {
     zoom: 13,
