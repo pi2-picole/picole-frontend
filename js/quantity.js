@@ -115,3 +115,35 @@ var quantitiy=0;
             }
     });
 });
+
+
+//post dos sabores
+
+function postPurchase(){
+console.log("EEEEEEEEEEEEEEE olar")
+
+var machineId = 4
+var popsicleId = 8
+var amount = 738
+var flavor = "Chocolate"
+
+if (amount !== 0){
+    console.log("entrei no if")
+    $.ajax({
+    url: "https://picole-pi2.herokuapp.com/purchases/",
+    data: {
+        "machine_id": machineId,
+        "popsicles": [
+            { "amount":amount, "flavor": flavor, "price": "150", "popsicle_id": popsicleId }
+        ]
+    },
+    type: "POST",
+    success: function(teste) { alert('Sucesso!' ); },
+    error: function() { alert('Erro!'); }
+    });
+}else{
+    console.log("Não há picoles deste sabor no estoque")
+}
+
+
+}
