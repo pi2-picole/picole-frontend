@@ -1,82 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Estoque</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/prettyPhoto.css" rel="stylesheet">
-    <link href="css/animate.min.css" rel="stylesheet">
-	  <link href="css/main.css" rel="stylesheet">
-	  <link href="css/responsive.css" rel="stylesheet">
-    <link href="css/map.css" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>Estoque</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/font-awesome.min.css" rel="stylesheet">
+  <link href="css/prettyPhoto.css" rel="stylesheet">
+  <link href="css/animate.min.css" rel="stylesheet">
+  <link href="css/main.css" rel="stylesheet">
+  <link href="css/responsive.css" rel="stylesheet">
+  <link href="css/map.css" rel="stylesheet">
 
-    <script type="text/javascript" src="js/jquery.js"></script>
-    <script type="text/javascript" src="js/requests.js"></script>
-    <script type="text/javascript" src="js/storage.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/wow.min.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
-    <script type="text/javascript" src="js/map.js"></script>
-    <script type="text/javascript" src="js/headerfooter.js"></script>
-    <script type="text/javascript" src="js/session.js"></script>
-    <script src="/js/js.cookie.js"></script>
-    <script src="js/bootstrap-combobox.js"></script>
+  <script type="text/javascript" src="js/jquery.js"></script>
+  <script src="/js/js.cookie.js"></script>
+  <script type="text/javascript" src="js/requests.js"></script>
+  <script type="text/javascript" src="js/storage.js"></script>
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/wow.min.js"></script>
+  <script type="text/javascript" src="js/main.js"></script>
+  <script type="text/javascript" src="js/map.js"></script>
+  <script type="text/javascript" src="js/headerfooter.js"></script>
+  <script type="text/javascript" src="js/session.js"></script>
+
+  <script src="js/bootstrap-combobox.js"></script>
 
 
 
 
-    <!--[if lt IE 9]>
+  <!--[if lt IE 9]>
 	    <script src="js/html5shiv.js"></script>
 	    <script src="js/respond.min.js"></script>
     <![endif]-->
-    <link rel="shortcut icon" href="images/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
-</head><!--/head-->
+  <link rel="shortcut icon" href="images/ico/favicon.ico">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+</head>
+<!--/head-->
 
 <body>
-    <!-- #header-->
-      <div class="headerVendor"></div>
-    <!--/#header-->
+  <!-- #header-->
+  <div class="headerVendor"></div>
+  <!--/#header-->
 
-    <section id="page-breadcrumb">
-      <div class="vertical-center sun">
-        <div class="container">
-            <div class="row">
-              <div class="action">
-                <div class="col-md-6 col-sm-12">
-                  <div class="contact-form bottom">
-                    <h2>Controle De Estoque</h2>
+  <section id="page-breadcrumb">
+    <div class="vertical-center sun">
+      <div class="container">
+        <div class="row">
+          <div class="action">
+            <div class="col-md-6 col-sm-12">
+              <div class="contact-form bottom">
+                <h2>Controle De Estoque</h2>
 
-                    <h2>Máquina</h2>
-                    <select class="combobox" id="comboMachines" onchange="showCombo()">
+                <h2>Suas máquinas</h2>
+                <select class="combobox" id="comboMachines" onchange="showCombo()">
                       <option></option>
                     </select>
-                    <div id="machineStorage" style="display: none;">
-                    </div>
-                    <div class="form-group">
-                      <input type="submit" name="submit" id="storageButton" class="btn btn-submit" onClick="patchStorage()" value="Salvar" style="display: none;">
-                    </div>
-                  </div>
+                <div id="machineStorage" style="display: none;">
+                </div>
+                <div class="form-group">
+                  <input type="submit" name="submit" id="storageButton" class="btn btn-submit" onClick="patchStorage()" value="Salvar" style="display: none;">
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-   </section>
-    <!--/#action-->
-    <!-- #footer-->
-      <div class="footer"></div>
-    <!--/#footer-->
-
-
-
-
+    </div>
+  </section>
+  <!--/#action-->
+  <!-- #footer-->
+  <div class="footer"></div>
+  <!--/#footer-->
 </body>
+
 </html>
