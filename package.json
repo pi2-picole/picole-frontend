@@ -25,7 +25,7 @@
   },
   "git": {
     "scripts": {
-      "pre-push": "surge --project ./ --domain https://www.picole.surge.sh"
+      "pre-push": "surge --project ./ --domain https://picole.surge.sh"
     }
   },
   "dependencies": {
