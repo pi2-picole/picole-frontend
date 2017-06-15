@@ -132,7 +132,6 @@
         lastID = data.length;
         for (let i = 0; i < data.length; i++) {
           $("#flavorsTable tbody").append(BuildTableRow(data[i].label, data[i].id, data[i].seller || ""));
-          console.log(data.length);
         }
       });
     }
@@ -170,7 +169,6 @@
 
       // Adiciona Livro na Tabela
       var label = $("#label").val();
-      console.log(label);
       var id = $("#idMachine").val();
       var vendor = $("#vendorMachine").val();
       postMachine();
@@ -184,9 +182,7 @@
 
     function Delete(button_delete) {
       var row = $(button_delete).parents("tr");
-      console.log(row);
       var cols = row.children("td");
-      console.log(cols);
       _activeId = $($(cols[3]).children("button")[0]).data("id");
       deleteMachine(_activeId);
       $(button_delete).parents("tr").remove();
@@ -194,13 +190,9 @@
 
     function Display(button_edit) {
       var row = $(button_edit).parents("tr");
-      console.log(row);
       var cols = row.children("td");
-      console.log(cols);
 
       _activeId = $($(cols[3]).children("button")[0]).data("id");
-      console.log(_activeId);
-      $("#label").val($(cols[0]).text());
       $("#idMachine").val($(cols[1]).text());
       $("#vendorMachine").val($(cols[2]).text());
 
@@ -211,7 +203,6 @@
     function UpdateInTable(id) {
       // Encontra o livro na tabela
       var row = $("#flavorsTable button[data-id='" + id + "']").parents("tr")[0];
-      console.log(row);
       // Adiciona a linha modifica na tabela
       var label = $("#label").val();
       var id = $("#idMachine").val();
@@ -232,11 +223,11 @@
       if ($("#label").val() != null && $("#label").val() != '') {
         if ($("#updateButton").text() == "Atualizar") {
           UpdateInTable(_activeId);
-          console.log("Atualizar");
+
         } else {
           // Adiciona o Livro na Tabela
           AddToTable();
-          console.log("Adicionar");
+
         }
         // Limpa o formulário
         formClear();

@@ -139,14 +139,12 @@
           lastID = data.length;
           for (let i = 0; i < data.length; i++) {
             $("#flavorsTable tbody").append(BuildTableRow(data[i].username, data[i].email, data[i].id));
-            console.log(data[i].email);
 
           }
 
         },
         error: function(erro) {
           alert('Erro!');
-          console.log(erro);
         }
 
       });
@@ -185,7 +183,6 @@
 
       // Adiciona Livro na Tabela
       var vendorUsername = $("#vendorUsername").val();
-      console.log(vendorUsername);
       var vendorEmail = $("#vendorEmail").val();
       postVendor();
       $("#flavorsTable tbody").append(BuildTableRow(vendorUsername, vendorEmail, lastID));
@@ -198,9 +195,7 @@
 
     function Delete(button_delete) {
       var row = $(button_delete).parents("tr");
-      console.log(row);
       var cols = row.children("td");
-      console.log(cols);
       _activeId = $($(cols[2]).children("button")[0]).data("id");
       deleteVendor(_activeId);
       $(button_delete).parents("tr").remove();
@@ -208,12 +203,9 @@
 
     function Display(button_edit) {
       var row = $(button_edit).parents("tr");
-      console.log(row);
       var cols = row.children("td");
-      console.log(cols);
 
       _activeId = $($(cols[2]).children("button")[0]).data("id");
-      console.log(_activeId);
       $("#vendorUsername").val($(cols[0]).text());
       $("#vendorEmail").val($(cols[1]).text());
 
@@ -224,7 +216,6 @@
     function UpdateInTable(id) {
       // Encontra o livro na tabela
       var row = $("#flavorsTable button[data-id='" + id + "']").parents("tr")[0];
-      console.log(row);
       // Adiciona a linha modifica na tabela
       var vendorUsername = $("#vendorUsername").val();
       var vendorEmail = $("#vendorEmail").val();
@@ -245,11 +236,11 @@
       if ($("#vendorUsername").val() != null && $("#vendorUsername").val() != '') {
         if ($("#updateButton").text() == "Atualizar") {
           UpdateInTable(_activeId);
-          console.log("Atualizar");
+
         } else {
           // Adiciona o Livro na Tabela
           AddToTable();
-          console.log("Adicionar");
+
         }
         // Limpa o formulário
         formClear();

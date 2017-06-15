@@ -8,7 +8,6 @@ $(document).ready(function() {
       xhr.setRequestHeader('Authorization', 'Token ' + token);
     },
     success: function(data) {
-      console.log(data);
       var sel = document.getElementById('comboMachines');
       var opt = null;
       for (let i = 0; i < data.machines.length; i++) {
@@ -66,59 +65,48 @@ function patchStorage() {
       var flavor = $('#flavor-' + i).val();
       var quantity = $('#quantity-' + i).val();
 
-      if(quantity > data.stocks[i].amount){
-        console.log("Maior");
-      var realQuantity = quantity - data.stocks[i].amount;
-      $.ajax({
-        url: "https://picole-pi2.herokuapp.com/stock/entry/",
-        data: {
-          "popsicle": flavorId,
-          "amount": realQuantity,
-          "machine": id
-        },
-        type: "POST",
-        beforeSend: function(xhr) {
-          var token = Cookies.get('token');
-          xhr.setRequestHeader('Authorization', 'Token ' + token);
-        },
-        success: function(success) {
-          console.log(success);
-        },
-        error: function(error) {
-          alert(error.responseText);
-        }
-      });
-    }
-    else if (quantity < data.stocks[i].amount){
+      if (quantity > data.stocks[i].amount) {
+        var realQuantity = quantity - data.stocks[i].amount;
+        $.ajax({
+          url: "https://picole-pi2.herokuapp.com/stock/entry/",
+          data: {
+            "popsicle": flavorId,
+            "amount": realQuantity,
+            "machine": id
+          },
+          type: "POST",
+          beforeSend: function(xhr) {
+            var token = Cookies.get('token');
+            xhr.setRequestHeader('Authorization', 'Token ' + token);
+          },
+          success: function(success) {},
+          error: function(error) {}
+        });
+      } else if (quantity < data.stocks[i].amount) {
 
-      var realQuantityDecrease = data.stocks[i].amount - quantity;
-      console.log("Menor");
-      $.ajax({
-        url: "https://picole-pi2.herokuapp.com/stock/removal/",
-        data: {
-          "popsicle": flavorId,
-          "amount": realQuantityDecrease,
-          "machine": id
-        },
-        type: "POST",
-        beforeSend: function(xhr) {
-          var token = Cookies.get('token');
-          xhr.setRequestHeader('Authorization', 'Token ' + token);
-        },
-        success: function(success) {
-          console.log(success);
-        },
-        error: function(error) {
-          alert(error.responseText);
-        }
-      });
-    }
-    else if (quantity == data.stocks[i].amount) {
-      console.log("Igual");
-    }
-    else {
-      console.log("Outro Caso");
-    }
+        var realQuantityDecrease = data.stocks[i].amount - quantity;
+        $.ajax({
+          url: "https://picole-pi2.herokuapp.com/stock/removal/",
+          data: {
+            "popsicle": flavorId,
+            "amount": realQuantityDecrease,
+            "machine": id
+          },
+          type: "POST",
+          beforeSend: function(xhr) {
+            var token = Cookies.get('token');
+            xhr.setRequestHeader('Authorization', 'Token ' + token);
+          },
+          success: function(success) {},
+          error: function(error) {
+            alert(error.responseText);
+          }
+        });
+      } else if (quantity == data.stocks[i].amount) {
+        console.log("Igual");
+      } else {
+        console.log("Outro Caso");
+      }
 
 
     }

@@ -124,7 +124,7 @@
       jQuery.get('https://picole-pi2.herokuapp.com/popsicles/', function(data) {
         lastID = data.length;
         for (let i = 0; i < data.length; i++) {
-          data[i].price = data[i].price.replace(/(\d{1})(\d{1,2})$/,"$1,$2");
+          data[i].price = data[i].price.replace(/(\d{1})(\d{1,2})$/, "$1,$2");
           $("#flavorsTable tbody").append(BuildTableRow(data[i].flavor, data[i].price, data[i].id));
         }
       });
@@ -162,7 +162,6 @@
 
       // Adiciona Livro na Tabela
       var flavor = $("#flavor").val();
-      console.log(flavor);
       var price = $("#price").val();
       postFlavor();
       $("#flavorsTable tbody").append(BuildTableRow(flavor, price, lastID));
@@ -175,9 +174,7 @@
 
     function Delete(button_delete) {
       var row = $(button_delete).parents("tr");
-      console.log(row);
       var cols = row.children("td");
-      console.log(cols);
       _activeId = $($(cols[2]).children("button")[0]).data("id");
       deleteFlavor(_activeId);
       $(button_delete).parents("tr").remove();
@@ -185,12 +182,9 @@
 
     function Display(button_edit) {
       var row = $(button_edit).parents("tr");
-      console.log(row);
       var cols = row.children("td");
-      console.log(cols);
 
       _activeId = $($(cols[2]).children("button")[0]).data("id");
-      console.log(_activeId);
       $("#flavor").val($(cols[0]).text());
       $("#price").val($(cols[1]).text());
 
@@ -201,7 +195,6 @@
     function UpdateInTable(id) {
       // Encontra o livro na tabela
       var row = $("#flavorsTable button[data-id='" + id + "']").parents("tr")[0];
-      console.log(row);
       // Adiciona a linha modifica na tabela
       var flavor = $("#flavor").val();
       var price = $("#price").val();
@@ -222,11 +215,11 @@
       if ($("#flavor").val() != null && $("#flavor").val() != '') {
         if ($("#updateButton").text() == "Atualizar") {
           UpdateInTable(_activeId);
-          console.log("Atualizar");
+
         } else {
           // Adiciona o Livro na Tabela
           AddToTable();
-          console.log("Adicionar");
+
         }
         // Limpa o formulário
         formClear();
