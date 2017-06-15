@@ -63,7 +63,6 @@
             <tr>
               <th>Nome</th>
               <th>Email</th>
-              <th>Máquinas</th>
               <th>Alterar</th>
               <th>Deletar</th>
             </tr>
@@ -90,11 +89,6 @@
               <div class="form-group">
                 <label for="vendorPassword">Senha</label>
                 <input type="text" name="vendorPassword" id="vendorPassword" class="form-control input-lg" placeholder="Senha">
-              </div>
-
-              <div class="form-group">
-                <label for="vendorMachines">Máquinas</label>
-                <input type="number" name="vendorMachines" id="vendorMachines" class="form-control input-lg" placeholder="Máquinas">
               </div>
 
               <div class="form-group">
@@ -127,7 +121,6 @@
       $("#vendorUsername").val("");
       $("#vendorEmail").val("");
       $("#vendorPassword").val("");
-      $("#vendorMachines").val("");
     }
 
     function populateTable() {
@@ -135,7 +128,7 @@
       $("#flavorsTable").append("<tbody></tbody>");
 
       $.ajax({
-        url: "https://picole-pi2.herokuapp.com/users/vendors/",
+        url: "https://picole-pi2.herokuapp.com/users/vendors",
         type: "GET",
 
         beforeSend: function(xhr) {
@@ -145,11 +138,9 @@
         success: function(data) {
           lastID = data.length;
           for (let i = 0; i < data.length; i++) {
-            // for (let j = 0; j < data[i].machines.length; j++) {
-            $("#flavorsTable tbody").append(BuildTableRow(data[i].username, data[i].email || '', data[i].id, data[i].machines));
-            console.log(data[i].id);
-            // console.log(data[i].machines[j].id)
-            // }
+            $("#flavorsTable tbody").append(BuildTableRow(data[i].username, data[i].email, data[i].id));
+            console.log(data[i].email);
+
           }
 
         },
@@ -157,15 +148,15 @@
           alert('Erro!');
           console.log(erro);
         }
+
       });
 
     }
 
-    function BuildTableRow(username, email, id, machines) {
+    function BuildTableRow(username, email, id) {
       var row = "<tr>" +
         "<td>" + username + "</td>" +
         "<td>" + email + "</td>" +
-        "<td>" + machines + "</td>" +
         "<td>" +
         "<button type='button' " +
         "onclick='Display(this);' " +
@@ -196,9 +187,8 @@
       var vendorUsername = $("#vendorUsername").val();
       console.log(vendorUsername);
       var vendorEmail = $("#vendorEmail").val();
-      var vendorMachines = $("#vendorMachines").val();
       postVendor();
-      $("#flavorsTable tbody").append(BuildTableRow(vendorUsername, vendorEmail, lastID, vendorMachines));
+      $("#flavorsTable tbody").append(BuildTableRow(vendorUsername, vendorEmail, lastID));
 
 
 
@@ -211,7 +201,7 @@
       console.log(row);
       var cols = row.children("td");
       console.log(cols);
-      _activeId = $($(cols[3]).children("button")[0]).data("id");
+      _activeId = $($(cols[2]).children("button")[0]).data("id");
       deleteVendor(_activeId);
       $(button_delete).parents("tr").remove();
     }
@@ -222,11 +212,10 @@
       var cols = row.children("td");
       console.log(cols);
 
-      _activeId = $($(cols[3]).children("button")[0]).data("id");
+      _activeId = $($(cols[2]).children("button")[0]).data("id");
       console.log(_activeId);
       $("#vendorUsername").val($(cols[0]).text());
       $("#vendorEmail").val($(cols[1]).text());
-      $("#vendorMachines").val($(cols[2]).text());
 
       // Mudar o texto do Botão
       $("#updateButton").text("Atualizar");
@@ -239,9 +228,8 @@
       // Adiciona a linha modifica na tabela
       var vendorUsername = $("#vendorUsername").val();
       var vendorEmail = $("#vendorEmail").val();
-      var vendorMachines = $("#vendorMachines").val();
       patchVendor(_activeId);
-      $(row).after(BuildTableRow(vendorUsername, vendorEmail, _activeId, vendorMachines));
+      $(row).after(BuildTableRow(vendorUsername, vendorEmail, _activeId));
 
       // Remover a linha antiga
       $(row).remove();
