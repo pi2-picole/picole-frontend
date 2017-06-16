@@ -304,7 +304,18 @@ function postVendor() {
       var token = Cookies.get('token');
       xhr.setRequestHeader('Authorization', 'Token ' + token);
     },
-    success: function() {
+    success: function(data) {
+      var id = data.id;
+      var dict = {
+        username: vendorUsername,
+        email: vendorEmail,
+        id: id
+      };
+      if ($("#flavorsTable tbody").length == 0) {
+        $("#flavorsTable").append("<tbody></tbody>");
+      }
+      $("#flavorsTable tbody").append(BuildTableRow(dict, "vendor"));
+
       alert("Vendedor Cadastrado.")
     },
     error: function(error) {
@@ -317,7 +328,7 @@ function postVendor() {
 
 }
 
-function patchVendor() {
+function patchVendor(_activeId) {
 
   var vendorUsername = $('#vendorUsername').val();
   var vendorPassword = $('#vendorPassword').val();
@@ -339,8 +350,28 @@ function patchVendor() {
       var token = Cookies.get('token');
       xhr.setRequestHeader('Authorization', 'Token ' + token);
     },
-    success: function() {
-      alert("Vendedor atualizado.")
+    success: function(data) {
+      var id = data.id;
+      var dict = {
+        username: vendorUsername,
+        email: vendorEmail,
+        id: id
+      };
+
+      var row = $("#flavorsTable button[data-id='" + id + "']").parents("tr")[0];
+      // Adiciona a linha modifica na tabela
+
+      $(row).after(BuildTableRow(dict, "vendor"));
+
+      // Remover a linha antiga
+      $(row).remove();
+
+      // Limpar o formulário
+      formClear();
+
+      // Mudar o texto do Botão
+      $("#updateButton").text("Adicionar Vendedor");
+      alert("Vendedor atualizado.");
     },
     error: function(error) {
       var text = JSON.parse(error.responseText);
@@ -352,7 +383,10 @@ function patchVendor() {
 
 }
 
-function deleteVendor(_activeId) {
+function deleteVendor(button_delete) {
+  var row = $(button_delete).parents("tr");
+  var cols = row.children("td");
+  _activeId = $($(cols[2]).children("button")[0]).data("id");
 
   $.ajax({
     url: "https://picole-pi2.herokuapp.com/users/" + _activeId + "/",
@@ -362,6 +396,7 @@ function deleteVendor(_activeId) {
       xhr.setRequestHeader('Authorization', 'Token ' + token);
     },
     success: function() {
+      $(button_delete).parents("tr").remove();
       alert("Vendedor deletado.")
     },
     error: function(error) {

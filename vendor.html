@@ -115,8 +115,6 @@
     // ID do livro que está sendo editado
     _activeId = "";
 
-    lastId = "";
-
     function formClear() {
       $("#vendorUsername").val("");
       $("#vendorEmail").val("");
@@ -130,75 +128,29 @@
       $.ajax({
         url: "https://picole-pi2.herokuapp.com/users/vendors",
         type: "GET",
-
         beforeSend: function(xhr) {
           var token = Cookies.get('token');
           xhr.setRequestHeader('Authorization', 'Token ' + token);
         },
         success: function(data) {
-          lastID = data.length;
           for (let i = 0; i < data.length; i++) {
-            $("#flavorsTable tbody").append(BuildTableRow(data[i].username, data[i].email, data[i].id));
-
+            dict = {
+              username: data[i].username,
+              email: data[i].email,
+              id: data[i].id
+            }
+            $("#flavorsTable tbody").append(BuildTableRow(dict, "vendor"));
           }
-
         },
         error: function(erro) {
           alert(erro.responseText);
         }
-
       });
-
     }
 
-    function BuildTableRow(username, email, id) {
-      var row = "<tr>" +
-        "<td>" + username + "</td>" +
-        "<td>" + email + "</td>" +
-        "<td>" +
-        "<button type='button' " +
-        "onclick='Display(this);' " +
-        "class='btn btn-default'" +
-        "data-id='" + id + "'>" +
-        "<span class='glyphicon glyphicon-edit'></span>" +
-        "</button>" +
-        "</td>" +
-        "<td>" +
-        "<button type='button' " +
-        "onclick='Delete(this);' " +
-        "class='btn btn-default'" +
-        "data-id='" + id + "'>" +
-        "<span class='glyphicon glyphicon-remove'></span>" +
-        "</button>" +
-        "</td>" +
-        "</tr>"
-      return row;
-    }
-
-    function AddToTable() {
-      // Primeiro verifica se a tag <tbody> existe. Adiciona um caso não exista
-      if ($("#flavorsTable tbody").length == 0) {
-        $("#flavorsTable").append("<tbody></tbody>");
-      }
-
-      // Adiciona Livro na Tabela
-      var vendorUsername = $("#vendorUsername").val();
-      var vendorEmail = $("#vendorEmail").val();
-      postVendor();
-      $("#flavorsTable tbody").append(BuildTableRow(vendorUsername, vendorEmail, lastID));
-
-
-
-      // // Incrementamos o nextId
-      // _nextId += 1;
-    }
 
     function Delete(button_delete) {
-      var row = $(button_delete).parents("tr");
-      var cols = row.children("td");
-      _activeId = $($(cols[2]).children("button")[0]).data("id");
-      deleteVendor(_activeId);
-      $(button_delete).parents("tr").remove();
+      deleteVendor(button_delete);
     }
 
     function Display(button_edit) {
@@ -213,23 +165,9 @@
       $("#updateButton").text("Atualizar");
     }
 
-    function UpdateInTable(id) {
+    function UpdateInTable(_activeId) {
       // Encontra o livro na tabela
-      var row = $("#flavorsTable button[data-id='" + id + "']").parents("tr")[0];
-      // Adiciona a linha modifica na tabela
-      var vendorUsername = $("#vendorUsername").val();
-      var vendorEmail = $("#vendorEmail").val();
       patchVendor(_activeId);
-      $(row).after(BuildTableRow(vendorUsername, vendorEmail, _activeId));
-
-      // Remover a linha antiga
-      $(row).remove();
-
-      // Limpar o formulário
-      formClear();
-
-      // Mudar o texto do Botão
-      $("#updateButton").text("Adicionar Vendedor");
     }
 
     function Update() {
@@ -239,7 +177,7 @@
 
         } else {
           // Adiciona o Livro na Tabela
-          AddToTable();
+          postVendor();
 
         }
         // Limpa o formulário
