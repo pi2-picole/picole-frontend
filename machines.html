@@ -33,8 +33,6 @@
   <script type="text/javascript" src="js/requests.js"></script>
   <script type="text/javascript" src="js/session.js"></script>
 
-
-
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -82,11 +80,6 @@
                 <input type="text" name="title" id="label" class="form-control input-lg" placeholder="Identificação Da Máquina">
               </div>
 
-              <!-- <div class="form-group">
-                <label for="idMachine">Número</label>
-                <input type="number" name="price" id="idMachine" class="form-control input-lg" placeholder="Número">
-              </div> -->
-
               <div class="form-group">
                 <label for="vendorMachine">Vendedor</label>
                 <input type="text" name="price" id="vendorMachine" class="form-control input-lg" placeholder="Vendor">
@@ -116,11 +109,9 @@
     // ID do livro que está sendo editado
     _activeId = "";
 
-    lastId = "";
 
     function formClear() {
       $("#label").val("");
-      // $("#idMachine").val("");
       $("#vendorMachine").val("");
     }
 
@@ -129,63 +120,19 @@
       $("#flavorsTable").append("<tbody></tbody>");
 
       jQuery.get('https://picole-pi2.herokuapp.com/machines/', function(data) {
-        lastID = data.length;
         for (let i = 0; i < data.length; i++) {
-          $("#flavorsTable tbody").append(BuildTableRow(data[i].label, data[i].id, data[i].seller || ""));
+          var dict = {
+            label: data[i].label,
+            id: data[i].id,
+            seller: data[i].seller
+          };
+          $("#flavorsTable tbody").append(BuildTableRow(dict, "machine"));
         }
       });
     }
 
-    function BuildTableRow(label, id, vendor) {
-      var row = "<tr>" +
-        "<td>" + label + "</td>" +
-        "<td>" + id + "</td>" +
-        "<td>" + vendor + "</td>" +
-        "<td>" +
-        "<button type='button' " +
-        "onclick='Display(this);' " +
-        "class='btn btn-default'" +
-        "data-id='" + id + "'>" +
-        "<span class='glyphicon glyphicon-edit'></span>" +
-        "</button>" +
-        "</td>" +
-        "<td>" +
-        "<button type='button' " +
-        "onclick='Delete(this);' " +
-        "class='btn btn-default'" +
-        "data-id='" + id + "'>" +
-        "<span class='glyphicon glyphicon-remove'></span>" +
-        "</button>" +
-        "</td>" +
-        "</tr>"
-      return row;
-    }
-
-    function AddToTable() {
-      // Primeiro verifica se a tag <tbody> existe. Adiciona um caso não exista
-      if ($("#flavorsTable tbody").length == 0) {
-        $("#flavorsTable").append("<tbody></tbody>");
-      }
-
-      // Adiciona Livro na Tabela
-      var label = $("#label").val();
-      var id = $("#idMachine").val();
-      var vendor = $("#vendorMachine").val();
-      postMachine();
-      $("#flavorsTable tbody").append(BuildTableRow(label, lastID, vendor));
-
-
-
-      // // Incrementamos o nextId
-      // _nextId += 1;
-    }
-
     function Delete(button_delete) {
-      var row = $(button_delete).parents("tr");
-      var cols = row.children("td");
-      _activeId = $($(cols[3]).children("button")[0]).data("id");
-      deleteMachine(_activeId);
-      $(button_delete).parents("tr").remove();
+      deleteMachine(button_delete);
     }
 
     function Display(button_edit) {
@@ -193,40 +140,21 @@
       var cols = row.children("td");
 
       _activeId = $($(cols[3]).children("button")[0]).data("id");
-      $("#idMachine").val($(cols[1]).text());
+      $("#label").val($(cols[0]).text());
       $("#vendorMachine").val($(cols[2]).text());
 
       // Mudar o texto do Botão
       $("#updateButton").text("Atualizar");
     }
 
-    function UpdateInTable(id) {
-      // Encontra o livro na tabela
-      var row = $("#flavorsTable button[data-id='" + id + "']").parents("tr")[0];
-      // Adiciona a linha modifica na tabela
-      var label = $("#label").val();
-      var id = $("#idMachine").val();
-      patchMachine(_activeId);
-      $(row).after(BuildTableRow(label, _activeId));
-
-      // Remover a linha antiga
-      $(row).remove();
-
-      // Limpar o formulário
-      formClear();
-
-      // Mudar o texto do Botão
-      $("#updateButton").text("Adicionar Máquina");
-    }
-
     function Update() {
       if ($("#label").val() != null && $("#label").val() != '') {
         if ($("#updateButton").text() == "Atualizar") {
-          UpdateInTable(_activeId);
+          patchMachine(_activeId);
 
         } else {
           // Adiciona o Livro na Tabela
-          AddToTable();
+          postMachine();
 
         }
         // Limpa o formulário

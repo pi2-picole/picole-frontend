@@ -1,269 +1,413 @@
-  // Flavor
+function BuildTableRow(obj, type) {
+  console.log(type);
+  var row = "<tr>"
 
-  function postFlavor() {
+  for (let i in obj) {
+    if (i != "id")
+      row += "<td>" + obj[i] + "</td>"
+    else if(type == "machine")
+     row += "<td>" + obj[i] + "</td>"
 
-    var flavor = $('#flavor').val();
-    var price = $('#price').val();
+  }
 
-    return $.ajax({
-      url: "https://picole-pi2.herokuapp.com/popsicles/",
-      data: {
-        "flavor": flavor,
-        "price": price,
-        "is_active": true
-      },
-      type: "POST",
-      beforeSend: function(xhr) {
-        var token = Cookies.get('token');
-        xhr.setRequestHeader('Authorization', 'Token ' + token);
-      },
-      success: function(success) {},
-      error: function(error) {
+  row += "<td>" +
+    "<button type='button' " +
+    "onclick='Display(this);' " +
+    "class='btn btn-default'" +
+    "data-id='" + obj.id + "'>" +
+    "<span class='glyphicon glyphicon-edit'></span>" +
+    "</button>" +
+    "</td>" +
+    "<td>" +
+    "<button type='button' " +
+    "onclick='Delete(this);' " +
+    "class='btn btn-default'" +
+    "data-id='" + obj.id + "'>" +
+    "<span class='glyphicon glyphicon-remove'></span>" +
+    "</button>" +
+    "</td>" +
+    "</tr>"
+  return row;
+}
 
-        var response = JSON.parse(error.responseText);
+// Flavor
 
-        if (response.flavor == "popsicle with this flavor already exists.") {
-          alert("Picolé já cadastrado.");
-        } else if (response.price == "Ensure this field has no more than 4 characters.") {
-          alert("Preço não deve ter mais que quatro dígitos.")
-        } else {
-          alert(response);
-        }
+
+function postFlavor() {
+
+  var flavor = $('#flavor').val();
+  var price = $('#price').val();
+
+  return $.ajax({
+    url: "https://picole-pi2.herokuapp.com/popsicles/",
+    data: {
+      "flavor": flavor,
+      "price": price,
+      "is_active": true
+    },
+    type: "POST",
+    beforeSend: function(xhr) {
+      var token = Cookies.get('token');
+      xhr.setRequestHeader('Authorization', 'Token ' + token);
+    },
+    success: function AddToTable(data) {
+      var id = data.id;
+      console.log(id);
+      // Primeiro verifica se a tag <tbody> existe. Adiciona um caso não exista
+      if ($("#flavorsTable tbody").length == 0) {
+        $("#flavorsTable").append("<tbody></tbody>");
       }
-    });
 
-  }
+      // Adiciona Livro na Tabela
+      var popsicle = {
+        flavor: flavor,
+        price: price,
+        id: id
+      };
+      $("#flavorsTable tbody").append(BuildTableRow(popsicle, "flavor"));
 
-  function patchFlavor(_activeId) {
-    var flavor = $('#flavor').val();
-    var price = $('#price').val();
-
-    return $.ajax({
-      url: "https://picole-pi2.herokuapp.com/popsicles/" + _activeId + "/",
-      data: {
-        "flavor": flavor,
-        "price": price,
-        "is_active": true
-      },
-      type: "PATCH",
-      beforeSend: function(xhr) {
-        var token = Cookies.get('token');
-        xhr.setRequestHeader('Authorization', 'Token ' + token);
-      },
-      success: function() {},
-      error: function(error) {
-        var response = JSON.parse(error.responseText);
-
+      alert("Picolé Cadastrado ");
+      // // Incrementamos o nextId
+      // _nextId += 1;
+    },
+    error: function(error) {
+      var text = JSON.parse(error.responseText);
+      for (let i in text) {
+          alert(text[i]);
       }
-    });
 
-  }
+    }
+  });
 
-  function deleteFlavor(_activeId) {
-    var flavor = $('#flavor').val();
-    var price = $('#price').val();
+}
 
-    $.ajax({
-      url: "https://picole-pi2.herokuapp.com/popsicles/" + _activeId + "/",
-      type: "DELETE",
-      beforeSend: function(xhr) {
-        var token = Cookies.get('token');
-        xhr.setRequestHeader('Authorization', 'Token ' + token);
-      },
-      success: function(data) {},
-      error: function(error) {
-        alert(error.responseText);
+function patchFlavor(_activeId) {
+  var flavor = $('#flavor').val();
+  var price = $('#price').val();
+
+  return $.ajax({
+    url: "https://picole-pi2.herokuapp.com/popsicles/" + _activeId + "/",
+    data: {
+      "flavor": flavor,
+      "price": price,
+      "is_active": true
+    },
+    type: "PATCH",
+    beforeSend: function(xhr) {
+      var token = Cookies.get('token');
+      xhr.setRequestHeader('Authorization', 'Token ' + token);
+    },
+    success: function(data) {
+      var id = data.id;
+      var row = $("#flavorsTable button[data-id='" + id + "']").parents("tr")[0];
+
+      var popsicle = {
+        flavor: flavor,
+        price: price,
+        id: id
+      };
+
+      $(row).after(BuildTableRow(popsicle, "flavor"));
+
+      // Remover a linha antiga
+      $(row).remove();
+
+      // Limpar o formulário
+      formClear();
+
+      // Mudar o texto do Botão
+      $("#updateButton").text("Adicionar Picolé");
+
+      alert("Picolé atualizado!");
+
+    },
+    error: function(error) {
+      var text = JSON.parse(error.responseText);
+      for (let i in text) {
+          alert(text[i]);
       }
-    });
+    }
+  });
 
-  }
+}
 
-  //Machine
+function deleteFlavor(button_delete) {
+  var row = $(button_delete).parents("tr");
+  var cols = row.children("td");
+  _activeId = $($(cols[2]).children("button")[0]).data("id");
 
-  function postMachine() {
-
-    var label = $('#label').val();
-    // var idMachine = $('#idMachine').val();
-    var vendorMachine = $('#vendorMachine').val();
-
-
-    $.ajax({
-      url: "https://picole-pi2.herokuapp.com/machines/",
-      data: {
-        "is_active": true,
-        "seller": vendorMachine,
-        "label": label
-      },
-      type: "POST",
-
-      beforeSend: function(xhr) {
-        var token = Cookies.get('token');
-        xhr.setRequestHeader('Authorization', 'Token ' + token);
-      },
-      success: function(data) {
-        alert(data);
-      },
-      error: function(error) {
-        alert(error.responseText);
+  $.ajax({
+    url: "https://picole-pi2.herokuapp.com/popsicles/" + _activeId + "/",
+    type: "DELETE",
+    beforeSend: function(xhr) {
+      var token = Cookies.get('token');
+      xhr.setRequestHeader('Authorization', 'Token ' + token);
+    },
+    success: function(data) {
+      $(button_delete).parents("tr").remove();
+      alert("Sabor de picolé deletado.")
+    },
+    error: function(error) {
+      var text = JSON.parse(error.responseText);
+      for (let i in text) {
+          alert(text[i]);
       }
-    });
+    }
+  });
 
-  }
+}
 
-  function patchMachine(_activeId) {
+//Machine
 
-    var label = $('#label').val();
-    // var idMachine = $('#idMachine').val();
-    var vendorMachine = $('#vendorMachine').val();
+function postMachine() {
+
+  var label = $('#label').val();
+  // var idMachine = $('#idMachine').val();
+  var vendorMachine = $('#vendorMachine').val();
 
 
-    $.ajax({
-      url: "https://picole-pi2.herokuapp.com/machines/" + _activeId + "/",
-      data: {
-        "is_active": true,
-        "seller": vendorMachine,
-        "label": label
-      },
-      type: "PATCH",
-      beforeSend: function(xhr) {
-        var token = Cookies.get('token');
-        xhr.setRequestHeader('Authorization', 'Token ' + token);
-      },
-      success: function(success) {},
-      error: function(error) {
-        alert(error.responseText);
+  return $.ajax({
+    url: "https://picole-pi2.herokuapp.com/machines/",
+    data: {
+      "is_active": true,
+      "seller": vendorMachine,
+      "label": label
+    },
+    type: "POST",
+
+    beforeSend: function(xhr) {
+      var token = Cookies.get('token');
+      xhr.setRequestHeader('Authorization', 'Token ' + token);
+    },
+    success: function(data) {
+      if ($("#flavorsTable tbody").length == 0) {
+        $("#flavorsTable").append("<tbody></tbody>");
       }
-    });
+      var id = data.id;
 
-  }
-
-  function deleteMachine(_activeId) {
-
-    $.ajax({
-      url: "https://picole-pi2.herokuapp.com/machines/" + _activeId + "/",
-      type: "DELETE",
-      beforeSend: function(xhr) {
-        var token = Cookies.get('token');
-        xhr.setRequestHeader('Authorization', 'Token ' + token);
-      },
-      success: function() {},
-      error: function(error) {
-        alert(error);
+      var dict = {
+        label: label,
+        id: id,
+        seller: vendorMachine,
+      };
+      $("#flavorsTable tbody").append(BuildTableRow(dict, "machine"));
+      alert("Máquina Cadastrada!");
+    },
+    error: function(error) {
+      var text = JSON.parse(error.responseText);
+      for (let i in text) {
+          alert(text[i]);
       }
-    });
+    }
+  });
 
-  }
+}
 
-  //Vendor
+function patchMachine(_activeId) {
 
-  function postVendor() {
+  var label = $('#label').val();
+  // var idMachine = $('#idMachine').val();
+  var vendorMachine = $('#vendorMachine').val();
 
-    var vendorUsername = $('#vendorUsername').val();
-    var vendorPassword = $('#vendorPassword').val();
-    var vendorEmail = $('#vendorEmail').val();
-    var vendorMachines = $('#vendorMachines').val();
 
-    $.ajax({
-      url: "https://picole-pi2.herokuapp.com/users/",
-      data: {
-        "password": vendorPassword,
-        "username": vendorUsername,
-        "email": vendorEmail,
-        "machines": vendorMachines
-      },
-      type: "POST",
+  $.ajax({
+    url: "https://picole-pi2.herokuapp.com/machines/" + _activeId + "/",
+    data: {
+      "is_active": true,
+      "seller": vendorMachine,
+      "label": label
+    },
+    type: "PATCH",
+    beforeSend: function(xhr) {
+      var token = Cookies.get('token');
+      xhr.setRequestHeader('Authorization', 'Token ' + token);
+    },
+    success: function(success) {
 
-      beforeSend: function(xhr) {
-        var token = Cookies.get('token');
-        xhr.setRequestHeader('Authorization', 'Token ' + token);
-      },
-      success: function() {},
-      error: function(erro) {
-        alert(erro.responseText);
+      var row = $("#flavorsTable button[data-id='" + id + "']").parents("tr")[0];
+      var id = data.id;
+
+      var dict = {
+        label: label,
+        id: id,
+        seller: vendorMachine,
+      };
+      $("#flavorsTable tbody").append(BuildTableRow(dict, "machine"));
+
+
+      // Remover a linha antiga
+      $(row).remove();
+
+      // Limpar o formulário
+      formClear();
+
+      // Mudar o texto do Botão
+      $("#updateButton").text("Adicionar Máquina");
+      alert("Máquina Atualizada");
+    },
+    error: function(error) {
+      var text = JSON.parse(error.responseText);
+      for (let i in text) {
+          alert(text[i]);
       }
-    });
+    }
+  });
 
-  }
+}
 
-  function patchVendor() {
+function deleteMachine(button_delete) {
+  var row = $(button_delete).parents("tr");
+  var cols = row.children("td");
+  _activeId = $($(cols[3]).children("button")[0]).data("id");
+  $.ajax({
+    url: "https://picole-pi2.herokuapp.com/machines/" + _activeId + "/",
+    type: "DELETE",
+    beforeSend: function(xhr) {
+      var token = Cookies.get('token');
+      xhr.setRequestHeader('Authorization', 'Token ' + token);
+    },
+    success: function() {
 
-    var vendorUsername = $('#vendorUsername').val();
-    var vendorPassword = $('#vendorPassword').val();
-    var vendorEmail = $('#vendorEmail').val();
-    var vendorMachines = $('#vendorMachines').val();
-
-
-    $.ajax({
-      url: "https://picole-pi2.herokuapp.com/users/" + _activeId + "/",
-      data: {
-        "password": vendorPassword,
-        "username": vendorUsername,
-        "email": vendorEmail,
-        "machines": vendorMachines
-      },
-      type: "PATCH",
-
-      beforeSend: function(xhr) {
-        var token = Cookies.get('token');
-        xhr.setRequestHeader('Authorization', 'Token ' + token);
-      },
-      success: function() {},
-      error: function(erro) {
-        alert(erro.responseText);
+      $(button_delete).parents("tr").remove();
+      alert("Máquina Deletada");
+    },
+    error: function(error) {
+      var text = JSON.parse(error.responseText);
+      for (let i in text) {
+          alert(text[i]);
       }
-    });
+    }
+  });
 
-  }
+}
 
-  function deleteVendor(_activeId) {
+//Vendor
 
-    $.ajax({
-      url: "https://picole-pi2.herokuapp.com/users/" + _activeId + "/",
-      type: "DELETE",
-      beforeSend: function(xhr) {
-        var token = Cookies.get('token');
-        xhr.setRequestHeader('Authorization', 'Token ' + token);
-      },
-      success: function() {},
-      error: function(error) {
-        alert(error.responseText);
+function postVendor() {
+
+  var vendorUsername = $('#vendorUsername').val();
+  var vendorPassword = $('#vendorPassword').val();
+  var vendorEmail = $('#vendorEmail').val();
+  var vendorMachines = $('#vendorMachines').val();
+
+  $.ajax({
+    url: "https://picole-pi2.herokuapp.com/users/",
+    data: {
+      "password": vendorPassword,
+      "username": vendorUsername,
+      "email": vendorEmail,
+      "machines": vendorMachines
+    },
+    type: "POST",
+
+    beforeSend: function(xhr) {
+      var token = Cookies.get('token');
+      xhr.setRequestHeader('Authorization', 'Token ' + token);
+    },
+    success: function() {
+      alert("Vendedor Cadastrado.")
+    },
+    error: function(error) {
+      var text = JSON.parse(error.responseText);
+      for (let i in text) {
+          alert(text[i]);
       }
-    });
+    }
+  });
 
-  }
+}
 
-  function login() {
+function patchVendor() {
 
-    var username = $('#username').val();
-    var password = $('#password').val();
-
-    $.ajax({
-      url: "https://picole-pi2.herokuapp.com/users/login/",
-      data: {
-        "password": password,
-        "username": username
-      },
-      type: "POST",
+  var vendorUsername = $('#vendorUsername').val();
+  var vendorPassword = $('#vendorPassword').val();
+  var vendorEmail = $('#vendorEmail').val();
+  var vendorMachines = $('#vendorMachines').val();
 
 
-      success: function(data) {
-        // var text = JSON.parse(data.responseText);
-        var token = data.token;
-        var type = data.is_staff;
-        var id = data.id;
-        if (type)
-          window.location.replace("/admin.html");
-        else
-          window.location.replace("/vendorArea.html");
+  $.ajax({
+    url: "https://picole-pi2.herokuapp.com/users/" + _activeId + "/",
+    data: {
+      "password": vendorPassword,
+      "username": vendorUsername,
+      "email": vendorEmail,
+      "machines": vendorMachines
+    },
+    type: "PATCH",
 
-        Cookies.set("token", token);
-        Cookies.set("id", id);
-      },
-      error: function() {
-        alert('Login/Senha não cadastrados. Tente Novamente.!');
-      },
-      complete: function(data) {
+    beforeSend: function(xhr) {
+      var token = Cookies.get('token');
+      xhr.setRequestHeader('Authorization', 'Token ' + token);
+    },
+    success: function() {
+      alert("Vendedor atualizado.")
+    },
+    error: function(error) {
+      var text = JSON.parse(error.responseText);
+      for (let i in text) {
+          alert(text[i]);
+      }
+    }
+  });
 
-      },
-    });
-  }
+}
+
+function deleteVendor(_activeId) {
+
+  $.ajax({
+    url: "https://picole-pi2.herokuapp.com/users/" + _activeId + "/",
+    type: "DELETE",
+    beforeSend: function(xhr) {
+      var token = Cookies.get('token');
+      xhr.setRequestHeader('Authorization', 'Token ' + token);
+    },
+    success: function() {
+      alert("Vendedor deletado.")
+    },
+    error: function(error) {
+      var text = JSON.parse(error.responseText);
+      for (let i in text) {
+          alert(text[i]);
+      }
+    }
+  });
+
+}
+
+function login() {
+
+  var username = $('#username').val();
+  var password = $('#password').val();
+
+  $.ajax({
+    url: "https://picole-pi2.herokuapp.com/users/login/",
+    data: {
+      "password": password,
+      "username": username
+    },
+    type: "POST",
+
+    success: function(data) {
+      // var text = JSON.parse(data.responseText);
+      var token = data.token;
+      var type = data.is_staff;
+      var id = data.id;
+      if (type)
+        window.location.replace("/admin.html");
+      else
+        window.location.replace("/vendorArea.html");
+
+      Cookies.set("token", token);
+      Cookies.set("id", id);
+    },
+    error: function(error) {
+      var text = JSON.parse(error.responseText);
+      for (let i in text) {
+          alert(text[i]);
+      }
+    },
+    complete: function(data) {
+
+    },
+  });
+}

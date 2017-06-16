@@ -33,8 +33,6 @@
   <script type="text/javascript" src="js/requests.js"></script>
   <script type="text/javascript" src="js/session.js"></script>
 
-
-
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -110,8 +108,6 @@
     // ID do livro que está sendo editado
     _activeId = "";
 
-    lastId = "";
-
     function formClear() {
       $("#flavor").val("");
       $("#price").val("");
@@ -122,62 +118,21 @@
       $("#flavorsTable").append("<tbody></tbody>");
 
       jQuery.get('https://picole-pi2.herokuapp.com/popsicles/', function(data) {
-        lastID = data.length;
+
         for (let i = 0; i < data.length; i++) {
-          data[i].price = data[i].price.replace(/(\d{1})(\d{1,2})$/, "$1,$2");
-          $("#flavorsTable tbody").append(BuildTableRow(data[i].flavor, data[i].price, data[i].id));
+          // var price = data[i].price.replace(/(\d{1})(\d{1,2})$/, "$1,$2");
+          var dict = {
+            flavor: data[i].flavor,
+            price: data[i].price,
+            id: data[i].id
+          };
+          $("#flavorsTable tbody").append(BuildTableRow(dict, "flavor"));
         }
       });
     }
 
-    function BuildTableRow(flavor, price, id) {
-      var row = "<tr>" +
-        "<td>" + flavor + "</td>" +
-        "<td>" + price + "</td>" +
-        "<td>" +
-        "<button type='button' " +
-        "onclick='Display(this);' " +
-        "class='btn btn-default'" +
-        "data-id='" + id + "'>" +
-        "<span class='glyphicon glyphicon-edit'></span>" +
-        "</button>" +
-        "</td>" +
-        "<td>" +
-        "<button type='button' " +
-        "onclick='Delete(this);' " +
-        "class='btn btn-default'" +
-        "data-id='" + id + "'>" +
-        "<span class='glyphicon glyphicon-remove'></span>" +
-        "</button>" +
-        "</td>" +
-        "</tr>"
-      return row;
-    }
-
-    function AddToTable() {
-      // Primeiro verifica se a tag <tbody> existe. Adiciona um caso não exista
-      if ($("#flavorsTable tbody").length == 0) {
-        $("#flavorsTable").append("<tbody></tbody>");
-      }
-
-      // Adiciona Livro na Tabela
-      var flavor = $("#flavor").val();
-      var price = $("#price").val();
-      postFlavor();
-      $("#flavorsTable tbody").append(BuildTableRow(flavor, price, lastID));
-
-
-
-      // // Incrementamos o nextId
-      // _nextId += 1;
-    }
-
     function Delete(button_delete) {
-      var row = $(button_delete).parents("tr");
-      var cols = row.children("td");
-      _activeId = $($(cols[2]).children("button")[0]).data("id");
-      deleteFlavor(_activeId);
-      $(button_delete).parents("tr").remove();
+      deleteFlavor(button_delete);
     }
 
     function Display(button_edit) {
@@ -192,39 +147,18 @@
       $("#updateButton").text("Atualizar");
     }
 
-    function UpdateInTable(id) {
-      // Encontra o livro na tabela
-      var row = $("#flavorsTable button[data-id='" + id + "']").parents("tr")[0];
-      // Adiciona a linha modifica na tabela
-      var flavor = $("#flavor").val();
-      var price = $("#price").val();
-      patchFlavor(_activeId);
-      $(row).after(BuildTableRow(flavor, price, _activeId));
-
-      // Remover a linha antiga
-      $(row).remove();
-
-      // Limpar o formulário
-      formClear();
-
-      // Mudar o texto do Botão
-      $("#updateButton").text("Adicionar Picolé");
-    }
-
     function Update() {
       if ($("#flavor").val() != null && $("#flavor").val() != '') {
         if ($("#updateButton").text() == "Atualizar") {
-          UpdateInTable(_activeId);
+          patchFlavor(_activeId);
 
         } else {
-          // Adiciona o Livro na Tabela
-          AddToTable();
-
+          postFlavor();
         }
         // Limpa o formulário
         formClear();
 
-        // Mantém o focu no campo Título
+        // Mantém o foco no campo Título
         $("#flavor").focus();
       }
     }
