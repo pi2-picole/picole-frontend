@@ -1,9 +1,8 @@
 var currentLocation = {}
 var selectedLocation = {}
 
+
 function locationsFromMachine(machine,map){
-
-
   for (var i=0; i < machine.length; i++){
     if (machine[i].location === null || machine[i].label === "" ) {
       console.log("Há máquinas sem locations")
