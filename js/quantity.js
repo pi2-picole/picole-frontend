@@ -120,30 +120,30 @@ var quantitiy=0;
 //post dos sabores
 
 function postPurchase(){
-console.log("EEEEEEEEEEEEEEE olar")
+    console.log("EEEEEEEEEEEEEEE olar")
 
-var machineId = 4
-var popsicleId = 8
-var amount = 738
-var flavor = "Chocolate"
+    var machineId = 1
+    var popsicleId = 10
+    var amount = 2
+    var flavor = "Milho Verde"
 
-if (amount !== 0){
-    console.log("entrei no if")
-    $.ajax({
-    url: "https://picole-pi2.herokuapp.com/purchases/",
-    data: {
-        "machine_id": machineId,
-        "popsicles": [
-            { "amount":amount, "flavor": flavor, "price": "150", "popsicle_id": popsicleId }
-        ]
-    },
-    type: "POST",
-    success: function(teste) { alert('Sucesso!' ); },
-    error: function() { alert('Erro!'); }
-    });
-}else{
-    console.log("Não há picoles deste sabor no estoque")
-}
-
-
+    if (amount !== 0){
+        console.log("entrei no if")
+        $.ajax({
+        url: "https://picole-pi2.herokuapp.com/purchases/",
+        data: JSON.stringify({
+            "machine_id": machineId,
+            "popsicles": [
+                { "amount":amount, "flavor": flavor, "price": "134", "popsicle_id": popsicleId },
+                { "amount":amount, "flavor": flavor, "price": "134", "popsicle_id": popsicleId }
+            ]})
+        ,
+        contentType: "application/json",
+        type: "POST",
+        success: function(teste) { alert('Sucesso!' ); },
+        error: function(error) { console.log(error.responseText); alert('Erro!'); }
+        });
+    }else{
+        console.log("Não há picoles deste sabor no estoque")
+    }
 }
