@@ -73,6 +73,19 @@
 
 
         for (let i in data) {
+          if (data[i].flavor == data[0].flavor) {
+            totals1.push(data[i].total);
+          }
+          else if (data[i].flavor == data[1].flavor) {
+
+            totals2.push(data[i].total);
+          }
+          else if (data[i].flavor == data[2].flavor) {
+          totals3.push(data[i].total);
+          }
+          else if (data[i].flavor == data[3].flavor) {
+            totals4.push(data[i].total);
+          }
           for (let j in data[i]) {
 
             if (j == "date") {
@@ -82,23 +95,10 @@
             if (j == "flavor") {
               flavors.push(data[i][j]);
             }
-
-            if (data[i].flavor == data[0].flavor) {
-              totals1.push(data[i].total);
-            }
-            else if (data[i].flavor == data[1].flavor) {
-              totals2.push(data[i].total);
-            }
-            else if (data[i].flavor == data[2].flavor) {
-            totals3.push(data[i].total);
-            }
-            else if (data[i].flavor == data[3].flavor) {
-              totals4.push(data[i].total);
-            }
           }
         }
         dates.sort();
-        console.log(dates);
+        console.log(totals1);
 
 
 
