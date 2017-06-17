@@ -62,45 +62,32 @@
         var token = Cookies.get('token');
         xhr.setRequestHeader('Authorization', 'Token ' + token);
       },
-      success: function(data) {
+      success: function(response) {
 
-        var dates = [];
-        var flavors = [];
-        var totals1 = [];
-        var totals2 = [];
-        var totals3 = [];
-        var totals4 = [];
+        var dates = new Set(response.map(function (obj){return obj.date}));
+        var flavors = new Set(response.map(function (obj){return obj.flavor}));
 
+        flavors  = Array.from(flavors)
 
-        for (let i in data) {
-          if (data[i].flavor == data[0].flavor) {
-            totals1.push(data[i].total);
-          }
-          else if (data[i].flavor == data[1].flavor) {
-
-            totals2.push(data[i].total);
-          }
-          else if (data[i].flavor == data[2].flavor) {
-          totals3.push(data[i].total);
-          }
-          else if (data[i].flavor == data[3].flavor) {
-            totals4.push(data[i].total);
-          }
-          for (let j in data[i]) {
-
-            if (j == "date") {
-              if(jQuery.inArray(data[i][j], dates))
-                dates.push(data[i][j]);
-            }
-            if (j == "flavor") {
-              flavors.push(data[i][j]);
-            }
-          }
-        }
+        dates = Array.from(dates)
         dates.sort();
-        console.log(totals1);
+        dates_obj = {}
+        for(let i in dates){
+            dates_obj[dates[i]] = parseInt(i)
+        }
 
-
+        var reduce_option = function (item){
+            return response.reduce(function (result, obj){
+                value = result[dates_obj[obj.date]]
+                if (obj.flavor == item){
+                    result[dates_obj[obj.date]] = obj.total
+                } else {
+                    result[dates_obj[obj.date]] = value || 0
+                }
+                console.log(result.length)
+                return result;
+            }, Array(dates.length))
+        }
 
         var config = {
           type: 'line',
@@ -111,24 +98,24 @@
               fill: false,
               backgroundColor: window.chartColors.blue,
               borderColor: window.chartColors.blue,
-              data: totals1,
+              data: reduce_option(flavors[0]),
             }, {
               label: flavors[1],
               fill: false,
               backgroundColor: window.chartColors.green,
               borderColor: window.chartColors.green,
-              data: totals2,
+              data: reduce_option(flavors[1]),
             }, {
               label: flavors[2],
               backgroundColor: window.chartColors.red,
               borderColor: window.chartColors.red,
-              data: totals3,
+              data: reduce_option(flavors[2]),
               fill: false,
             }, {
               label: flavors[3],
               backgroundColor: window.chartColors.yellow,
               borderColor: window.chartColors.yellow,
-              data: totals4,
+              data: reduce_option(flavors[3]),
               fill: false,
             }]
           },
@@ -162,6 +149,7 @@
             }
           }
         };
+
 
         load(config);
 
