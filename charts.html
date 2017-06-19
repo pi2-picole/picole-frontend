@@ -1,3 +1,4 @@
+x
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,6 +20,7 @@
   <script type="text/javascript" src="js/jquery.js"></script>
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
   <script type="text/javascript" src="js/wow.min.js"></script>
+  <script type="text/javascript" src="js/chart.js"></script>
   <script type="text/javascript" src="js/main.js"></script>
   <script type="text/javascript" src="js/map.js"></script>
   <script type="text/javascript" src="js/headerfooter.js"></script>
@@ -51,134 +53,36 @@
   <!--/#header-->
 
 
-  <canvas id="canvas" style="position: relative; height:40vw; width:80vw"></canvas>
+
+
+  <ul class="nav nav-pills nav-justified">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#home" role="tab">Picolés Vendidos Por Dia</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#profile" role="tab">Total De Picolés Vendidos</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#messages" role="tab">Temperatura</a>
+    </li>
+  </ul>
+
+  <div class="tab-content">
+    <div class="tab-pane active" id="home" role="tabpanel">
+      <canvas id="canvas" style="position: relative; height:30vw; width:80vw"></canvas>
+    </div>
+
+    <div class="tab-pane" id="profile" role="tabpanel">
+      <canvas id="canvasTotal" style="position: relative; height:30vw; width:80vw"></canvas>
+    </div>
+
+    <div class="tab-pane" id="messages" role="tabpanel">
+      <canvas id="canvasTemp" style="position: relative; height:30vw; width:80vw"></canvas>
+    </div>
+  </div>
+
 
   <!-- <div id="container" style="width:100%; height:400px;"></div> -->
-  <script>
-    $.ajax({
-      url: "https://picole-pi2.herokuapp.com/machines/1/graph_by_day/",
-      type: "GET",
-      beforeSend: function(xhr) {
-        var token = Cookies.get('token');
-        xhr.setRequestHeader('Authorization', 'Token ' + token);
-      },
-      success: function(data) {
-
-        var dates = [];
-        var flavors = [];
-        var totals1 = [];
-        var totals2 = [];
-        var totals3 = [];
-        var totals4 = [];
-
-
-        for (let i in data) {
-          if (data[i].flavor == data[0].flavor) {
-            totals1.push(data[i].total);
-          }
-          else if (data[i].flavor == data[1].flavor) {
-
-            totals2.push(data[i].total);
-          }
-          else if (data[i].flavor == data[2].flavor) {
-          totals3.push(data[i].total);
-          }
-          else if (data[i].flavor == data[3].flavor) {
-            totals4.push(data[i].total);
-          }
-          for (let j in data[i]) {
-
-            if (j == "date") {
-              if(jQuery.inArray(data[i][j], dates))
-                dates.push(data[i][j]);
-            }
-            if (j == "flavor") {
-              flavors.push(data[i][j]);
-            }
-          }
-        }
-        dates.sort();
-        console.log(totals1);
-
-
-
-        var config = {
-          type: 'line',
-          data: {
-            labels: dates,
-            datasets: [{
-              label: flavors[0],
-              fill: false,
-              backgroundColor: window.chartColors.blue,
-              borderColor: window.chartColors.blue,
-              data: totals1,
-            }, {
-              label: flavors[1],
-              fill: false,
-              backgroundColor: window.chartColors.green,
-              borderColor: window.chartColors.green,
-              data: totals2,
-            }, {
-              label: flavors[2],
-              backgroundColor: window.chartColors.red,
-              borderColor: window.chartColors.red,
-              data: totals3,
-              fill: false,
-            }, {
-              label: flavors[3],
-              backgroundColor: window.chartColors.yellow,
-              borderColor: window.chartColors.yellow,
-              data: totals4,
-              fill: false,
-            }]
-          },
-          options: {
-            responsive: true,
-            title: {
-              display: true,
-              text: 'Picolés vendidos por Dia '
-            },
-            tooltips: {
-              mode: 'index',
-              intersect: false,
-            },
-            hover: {
-              mode: 'nearest',
-              intersect: true
-            },
-            scales: {
-              xAxes: [{
-                display: true,
-                scaleLabel: {
-                  display: true,
-                }
-              }],
-              yAxes: [{
-                display: true,
-                scaleLabel: {
-                  display: true,
-                }
-              }]
-            }
-          }
-        };
-
-        load(config);
-
-      },
-      error: function(erro) {
-        var text = JSON.parse(error.responseText);
-        for (let i in text) {
-          alert(text[i]);
-        }
-      }
-    });
-
-    function load(config) {
-      var ctx = document.getElementById("canvas").getContext("2d");
-      window.myLine = new Chart(ctx, config);
-    };
-  </script>
 
   <!-- #footer-->
   <div class="footer"></div>
