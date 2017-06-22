@@ -42,8 +42,8 @@ function createSelects(location, machineName){
 
 //associa os sabores as suas respectivas máquinas
 function getFlavorFromMachine(stocks, machineName){
-  for(var i=0; i<5; i++){
-    if(stocks[i].popsicle !== null){
+  for(var i=0; i<stocks.length; i++){
+    if(stocks[i].popsicle != undefined){
       var price = stocks[i].popsicle.price
       var flavorMachine = stocks[i].popsicle.flavor
       document.getElementById('flavor'+i).innerHTML = flavorMachine + ' R$ ' + formatPrice(price)
