@@ -137,9 +137,10 @@ function pay(){
 
     var crediCardNumber =  firstNumber+secondNumber+thirdNumber+fourthNumber
 
-    console.log(totalPrice, crediCardNumber)
+    console.log(12345, crediCardNumber)
 
     $.ajax({
+        dataType: "json",
         url: "http://picole-pi2.herokuapp.com/purchases/",
         data:{
         "machine_id": 1,
@@ -164,6 +165,9 @@ function pay(){
                 }   
             }
          },
+         beforeSend: function(xhr){
+            xhr.setRequestHeader('Content-Type', 'application/json');
+        },
         type: "POST",
         success: function(data) { alert('Sucesso!'+ data ); },
         error: function(erro) { alert('Erro!'); 
