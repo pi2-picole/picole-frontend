@@ -84,6 +84,7 @@ function postFlavor() {
 function patchFlavor(_activeId) {
   var flavor = $('#flavor').val();
   var price = $('#price').val();
+  price = price.replace(",", "");
 
   return $.ajax({
     url: "https://picole-pi2.herokuapp.com/popsicles/" + _activeId + "/",
@@ -100,7 +101,7 @@ function patchFlavor(_activeId) {
     success: function(data) {
       var id = data.id;
       var row = $("#flavorsTable button[data-id='" + id + "']").parents("tr")[0];
-
+      price = price.replace(/(\d{1})(\d{1,2})$/, "$1,$2");
       var popsicle = {
         flavor: flavor,
         price: price,
