@@ -18,8 +18,8 @@ function patchStorage(){
 
 function postFlavor() {
 
-  var flavor = $('#flavor').val();
-  var price = $('#price').val();
+  var flavor = $('').val();
+  var price = $('').val();
 
 $.ajax({
   url: "https://picole-pi2.herokuapp.com/popsicles/",

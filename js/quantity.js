@@ -120,28 +120,54 @@ function parseValue(price){
 
 function formatPrice(price){
   price = price.toString()  
-  price = price.replace(/(\d{1})(\d{1,2})$/,"$1,$2") // coloca virgula antes dos ultimos 2 digitos
+  price = price.replace(/(\d{1})(\d{1,2})$/,"$1,$2") 
   return price
 }
 
-// function makePayment(){
-//     {
-//    "MerchantOrderId":"2014111703",
-//    "Customer":{
-//       "Name":"Comprador crédito simples"
-//    },
-//    "Payment":{
-//      "Type":"CreditCard",
-//      "Amount": totalPrice,
-//      "Installments":1,
-//      "SoftDescriptor":"123456789ABCD",
-//      "CreditCard":{
-//          "CardNumber":"1234123412341231",
-//          "Holder":"Teste Holder",
-//          "ExpirationDate":"12/2030",
-//          "SecurityCode":"123",
-//          "Brand":"Visa"
-//      }
-//    }
-// }
-// }
+
+function pay(){
+    
+    var firstNumber = $('#firstNumber').val()
+    var secondNumber = $('#secondNumber').val()
+    var thirdNumber = $('#thirdNumber').val()
+    var fourthNumber = $('#fourthNumber').val()
+    var ccv = $('#ccv').val()
+    var expirationDate =  $('#month').val()+$('#year').val()
+    var brand = $('#brand').val()
+
+    var crediCardNumber =  firstNumber+secondNumber+thirdNumber+fourthNumber
+
+    console.log(totalPrice, crediCardNumber)
+
+    $.ajax({
+        url: "http://picole-pi2.herokuapp.com/purchases/",
+        data:{
+        "machine_id": 1,
+        "popsicles": [
+            { "amount":parseInt($('#quantity0').val()), "popsicle_id": 1 },
+            { "amount":parseInt($('#quantity1').val()), "popsicle_id": 2 },
+            { "amount":parseInt($('#quantity2').val()), "popsicle_id": 3 },
+            { "amount":parseInt($('#quantity3').val()), "popsicle_id": 4 }
+         ]
+        },
+        "cielo_data": {
+            "MerchantOrderId":"1091935197",
+            "Payment":{
+                "Type":"CreditCard",
+                "Amount":totalPrice,
+                "Installments":1,
+                "CreditCard":{
+                    "CardNumber":crediCardNumber,
+                    "ExpirationDate":expirationDate,
+                    "SecurityCode": ccv,
+                    "Brand": brand
+                }   
+            }
+         },
+        type: "POST",
+        success: function(data) { alert('Sucesso!'+ data ); },
+        error: function(erro) { alert('Erro!'); 
+        console.log(erro);}
+    });
+}
+
