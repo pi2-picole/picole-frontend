@@ -204,74 +204,10 @@
             </div>
             <div class="modal-footer">
                <a href="#" type="button" class="btn btn-common" data-dismiss="modal">Fechar</a>
-               <a href="#" id="openCard" type="button" class="btn btn-common" data-dismiss="modal" data-toggle="modal" data-target="cardModal">Pagamento</a>
+               <a href="#" id="openCard" type="button" class="btn btn-common" data-dismiss="modal" data-toggle="modal" onclick="pay()">Pagamento</a>
             </div>
          </div>
       </section>
-      <!--#MODAL CARTÃO-->
-      <div class="modal fade" id="cardModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-         <div class="modal-dialog">
-            <div class="modal-content">
-               <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fechar</span></button>
-                  <h4 class="modal-title" id="myModalLabel">Finalizar Compra</h4>
-               </div>
-               <div class="modal-body">
-                  <div class="row">
-                     <div class="col-md-12">
-                        <div class="credit-card-div">
-                           <div class="row">
-                              <div class="col-md-12 col-sm-12 col-xs-12">
-                                 <h5 class="text-muted"> Número do cartão</h5>
-                              </div>
-                              <div class="col-md-3 col-sm-3 col-xs-3">
-                                 <input id="firstNumber" type="text" class="form-control" style="width: 58px;" placeholder="0000" />
-                              </div>
-                              <div class="col-md-3 col-sm-3 col-xs-3">
-                                 <input id="secondNumber" type="text" class="form-control" style="width: 58px;" placeholder="0000" />
-                              </div>
-                              <div class="col-md-3 col-sm-3 col-xs-3">
-                                 <input id="thirdNumber" type="text" class="form-control" style="width: 58px;" placeholder="0000" />
-                              </div>
-                              <div class="col-md-3 col-sm-3 col-xs-3">
-                                 <input id="fourthNumber" type="text" class="form-control" style="width: 58px;" placeholder="0000" />
-                              </div>
-                           </div>
-                           <div class="row ">
-                              <div class="col-md-3 col-sm-3 col-xs-3">
-                                 <span class="help-block text-muted small-font"> Mês</span>
-                                 <input id="month" type="text" class="form-control" placeholder="MM" />
-                              </div>
-                              <div class="col-md-3 col-sm-3 col-xs-3">
-                                 <span class="help-block text-muted small-font">  Ano</span>
-                                 <input id="year" type="text" class="form-control" placeholder="YY" />
-                              </div>
-                              <div class="col-md-3 col-sm-3 col-xs-3">
-                                 <span class="help-block text-muted small-font">CCV</span>
-                                 <input id="ccv" type="text" class="form-control" placeholder="CCV" />
-                              </div>
-                               <div class="col-md-3 col-sm-3 col-xs-3">
-                                 <span class="help-block text-muted small-font"></span>
-                                 <input id="brand" type="text" class="form-control" placeholder="Bandeira" />
-                              </div>
-                           </div>
-                           <div class="row ">
-                              <div class="col-md-12 pad-adjust">
-                                 <input type="text" class="form-control" placeholder="Nome no cartão" />
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="modal-footer">
-                        <a href="#" type="button" class="btn btn-common" data-dismiss="modal">Fechar</a>
-                        <a id="pay" type="button" class="btn btn-common" onclick="pay()">Concluir Compra</a>
-                     </div>
-                     <!--/#map-section-->
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
       <!--/#services-->
       <section id="action" class="responsive">
          <div class="vertical-center">
