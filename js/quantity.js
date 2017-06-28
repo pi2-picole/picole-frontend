@@ -124,53 +124,23 @@ function formatPrice(price){
   return price
 }
 
-
 function pay(){
-  console.log(totalPrice)
-
-    var firstNumber = $('#firstNumber').val()
-    var secondNumber = $('#secondNumber').val()
-    var thirdNumber = $('#thirdNumber').val()
-    var fourthNumber = $('#fourthNumber').val()
-    var ccv = $('#ccv').val()
-    var expirationDate =  $('#month').val()+ '/'+ $('#year').val()
-    var brand = $('#brand').val()
-
-    var crediCardNumber =  firstNumber+secondNumber+thirdNumber+fourthNumber
-
-    // console.log(totalPrice, crediCardNumber)
+    console.log("Pay")
     var data = {
-      machine_id: 1,
-      popsicles: [
-          { amount:parseInt($('#quantity0').val()), popsicle_id: 1 },
-          { amount:parseInt($('#quantity1').val()), popsicle_id: 2 },
-          { amount:parseInt($('#quantity2').val()), popsicle_id: 3 },
-          { amount:parseInt($('#quantity3').val()), popsicle_id: 4 }
-       ],
-       cielo_data: {
-           MerchantOrderId:'1091935197',
-           Payment: {
-               Type: "CreditCard",
-               Amount: '1000',
-               Installments: 1,
-               CreditCard: {
-                   CardNumber: crediCardNumber,
-                   ExpirationDate: expirationDate,
-                   SecurityCode: ccv,
-                   Brand: brand
-               }
-           }
-        }
+    "machine_id": 1,
+    "popsicles": [
+                { "amount":1, "flavor": "Morango", "price": "150", "popsicle_id": 1 }
+            ]
      }
     $.ajax({
-      // url: "http://picole-pi2.herokuapp.com/purchases/",
-        url: "http://localhost:8000/purchases/",
+        url: "http://picole-pi2.herokuapp.com/purchases/",
         data: JSON.stringify(data),
         type: "POST",
-        // processData: false,
         traditional: true,
-        beforeSend: function(xhr){ xhr.setRequestHeader('Content-Type', 'application/json');},
-        success: function(data) { console.log(data); },
-        error: function(erro) { console.log(erro); }
-    });
-}
+        beforeSend: function(xhr){
+             xhr.setRequestHeader('Content-Type', 'application/json')
+        },
+        success: function(data) {window.location.replace(data.url);},
+        error: function(erro) {console.log(erro)} 
+        }
+    )}
