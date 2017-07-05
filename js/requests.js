@@ -7,7 +7,6 @@ function BuildTableRow(obj, type) {
       row += "<td>" + obj[i] + "</td>"
     else if(type == "machine")
      row += "<td>" + obj[i] + "</td>"
-
   }
 
   row += "<td>" +

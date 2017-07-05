@@ -15,6 +15,7 @@ var totalPrice = 0
             total+= 1
             totalPrice += parseValue(price)
             $('#totalPrice').text('Total R$:'+ formatPrice(totalPrice))
+            localStorage.setItem("totalPrice", totalPrice)
     })
      $('#button0-minus').click(function(e){
         // Stop acting like a button
@@ -28,6 +29,7 @@ var totalPrice = 0
                 total += -1
                 totalPrice -= parseValue(price)
                 $('#totalPrice').text('Total R$:'+ formatPrice(totalPrice))
+                localStorage.setItem("totalPrice", totalPrice)
             }
     })
     $('#button1-plus').click(function(e){
@@ -41,6 +43,7 @@ var totalPrice = 0
             total += 1
             totalPrice += parseValue(price)
             $('#totalPrice').text('Total R$:'+ formatPrice(totalPrice))
+            localStorage.setItem("totalPrice", totalPrice)
     })
      $('#button1-minus').click(function(e){
         // Stop acting like a button
@@ -54,6 +57,7 @@ var totalPrice = 0
                 total += -1
                 totalPrice -= parseValue(price)
                 $('#totalPrice').text('Total R$:'+ formatPrice(totalPrice))
+                localStorage.setItem("totalPrice", totalPrice)
             }
     })
     $('#button2-plus').click(function(e){
@@ -67,7 +71,7 @@ var totalPrice = 0
             total += 1
             totalPrice += parseValue(price)
             $('#totalPrice').text('Total R$:'+ formatPrice(totalPrice))
-
+            localStorage.setItem("totalPrice", totalPrice)
     })
      $('#button2-minus').click(function(e){
         // Stop acting like a button
@@ -81,6 +85,7 @@ var totalPrice = 0
                 total += -1
                 totalPrice -= parseValue(price)
                 $('#totalPrice').text('Total R$:'+ formatPrice(totalPrice))
+                localStorage.setItem("totalPrice", totalPrice)
             }
     })
     $('#button3-plus').click(function(e){
@@ -94,6 +99,7 @@ var totalPrice = 0
             total += 1
             totalPrice += parseValue(price)
             $('#totalPrice').text('Total R$:'+ formatPrice(totalPrice))
+            localStorage.setItem("totalPrice", totalPrice)
 
     })
      $('#button3-minus').click(function(e){
@@ -108,6 +114,7 @@ var totalPrice = 0
                 total += -1
                 totalPrice -= parseValue(price)
                 $('#totalPrice').text('Total R$:'+ formatPrice(totalPrice))
+                localStorage.setItem("totalPrice", totalPrice)
             }
     })
 })
