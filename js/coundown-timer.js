@@ -28,6 +28,7 @@ var x = setInterval(function() {
     // If the count down is over, write some text 
     if (distance < 0) {
         clearInterval(x);
+
         document.getElementById("expire").innerHTML = "EXPIRADO";
     }
 }, 1000);
@@ -36,4 +37,5 @@ function expire() {
     console.log("clicou")
     clearInterval(x);
     document.getElementById("expire").innerHTML = "EXPIRADO";
+    document.getElementById("freeButton").style.display="none"
 }

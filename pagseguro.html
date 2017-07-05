@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Minha loja</title>
+    </head>
+    <body>
+        <!-- INICIO FORMULARIO BOTAO PAGSEGURO -->
+        <form action="https://pagseguro.uol.com.br/checkout/v2/payment.html" method="post" onsubmit="PagSeguroLightbox(this); return false;">
+            <!-- NÃO EDITE OS COMANDOS DAS LINHAS ABAIXO -->
+            <input type="hidden" name="code" value="76770B918585C52DD4548F8467A64268" />
+            <input type="hidden" name="iot" value="button" />
+            <input type="image" src="https://stc.pagseguro.uol.com.br/public/img/botoes/pagamentos/120x53-comprar.gif" name="submit" alt="Pague com PagSeguro - é rápido, grátis e seguro!" />
+        </form>
+        <script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script>
+        <!-- FINAL FORMULARIO BOTAO PAGSEGURO -->
+
+        <script>
+            var code = 'B78E1E5789024C09A06081E3E10A9508';
+            var isOpenLightbox = PagSeguroLightbox({
+                code: 'code'
+            }, {
+                success : function(transactionCode) {
+                    alert("success - " + transactionCode);
+                },
+                abort : function() {
+                    alert("abort");
+                }
+            });
+            // Redirecionando o cliente caso o navegador não tenha suporte ao Lightbox
+            if (!isOpenLightbox){
+                location.href="https://sandbox.pagseguro.uol.com.br/v2/checkout/payment.html?code="+code;
+            }
+        </script>
+    </body>
+</html>
