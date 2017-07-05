@@ -38,4 +38,25 @@ function expire() {
     clearInterval(x);
     document.getElementById("expire").innerHTML = "EXPIRADO";
     document.getElementById("freeButton").style.display="none"
+    freePopsicle()
 }
+
+function freePopsicle() {
+
+    console.log(localStorage.getItem('purchases'))
+    console.log("Pay FINAL")
+    var data = {
+         "purchases": localStorage.getItem('purchases')
+     }
+    $.ajax({
+        url: "http://picole-pi2.herokuapp.com/purchases/release/",
+        data: JSON.stringify(data),
+        type: "POST",
+        traditional: true,
+        beforeSend: function(xhr){
+             xhr.setRequestHeader('Content-Type', 'application/json')
+        },
+        success: function(data) {console.log(data)},
+        error: function(erro) {console.log(erro)} 
+        }
+    )}
