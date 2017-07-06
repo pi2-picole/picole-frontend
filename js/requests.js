@@ -38,7 +38,7 @@ function postFlavor() {
   var price = $('').val();
 
   return $.ajax({
-    url: "https://picole-pi2.herokuapp.com/popsicles/",
+    url: "http://localhost:8000/popsicles/",
     data: {
       "flavor": flavor,
       "price": price,
@@ -86,7 +86,7 @@ function patchFlavor(_activeId) {
   price = price.replace(",", "");
 
   return $.ajax({
-    url: "https://picole-pi2.herokuapp.com/popsicles/" + _activeId + "/",
+    url: "http://localhost:8000/popsicles/" + _activeId + "/",
     data: {
       "flavor": flavor,
       "price": price,
@@ -137,7 +137,7 @@ function deleteFlavor(button_delete) {
   _activeId = $($(cols[2]).children("button")[0]).data("id");
 
   $.ajax({
-    url: "https://picole-pi2.herokuapp.com/popsicles/" + _activeId + "/",
+    url: "http://localhost:8000/popsicles/" + _activeId + "/",
     type: "DELETE",
     beforeSend: function(xhr) {
       var token = Cookies.get('token');
@@ -167,7 +167,7 @@ function postMachine() {
 
 
   return $.ajax({
-    url: "https://picole-pi2.herokuapp.com/machines/",
+    url: "http://localhost:8000/machines/",
     data: {
       "is_active": true,
       "seller": vendorMachine,
@@ -211,7 +211,7 @@ function patchMachine(_activeId) {
 
 
   $.ajax({
-    url: "https://picole-pi2.herokuapp.com/machines/" + _activeId + "/",
+    url: "http://localhost:8000/machines/" + _activeId + "/",
     data: {
       "is_active": true,
       "seller": vendorMachine,
@@ -260,7 +260,7 @@ function deleteMachine(button_delete) {
   var cols = row.children("td");
   _activeId = $($(cols[3]).children("button")[0]).data("id");
   $.ajax({
-    url: "https://picole-pi2.herokuapp.com/machines/" + _activeId + "/",
+    url: "http://localhost:8000/machines/" + _activeId + "/",
     type: "DELETE",
     beforeSend: function(xhr) {
       var token = Cookies.get('token');
@@ -291,7 +291,7 @@ function postVendor() {
   var vendorMachines = $('#vendorMachines').val();
 
   $.ajax({
-    url: "https://picole-pi2.herokuapp.com/users/",
+    url: "http://localhost:8000/users/",
     data: {
       "password": vendorPassword,
       "username": vendorUsername,
@@ -337,7 +337,7 @@ function patchVendor(_activeId) {
 
 
   $.ajax({
-    url: "https://picole-pi2.herokuapp.com/users/" + _activeId + "/",
+    url: "http://localhost:8000/users/" + _activeId + "/",
     data: {
       "password": vendorPassword,
       "username": vendorUsername,
@@ -389,7 +389,7 @@ function deleteVendor(button_delete) {
   _activeId = $($(cols[2]).children("button")[0]).data("id");
 
   $.ajax({
-    url: "https://picole-pi2.herokuapp.com/users/" + _activeId + "/",
+    url: "http://localhost:8000/users/" + _activeId + "/",
     type: "DELETE",
     beforeSend: function(xhr) {
       var token = Cookies.get('token');
@@ -415,7 +415,7 @@ function login() {
   var password = $('#password').val();
 
   $.ajax({
-    url: "https://picole-pi2.herokuapp.com/users/login/",
+    url: "http://localhost:8000/users/login/",
     data: {
       "password": password,
       "username": username

@@ -1,7 +1,7 @@
 $(document).ready(function() {
   var id = Cookies.get('id');
   $.ajax({
-    url: "https://picole-pi2.herokuapp.com/users/" + id + "/",
+    url: "http://localhost:8000/users/" + id + "/",
     type: "GET",
     beforeSend: function(xhr) {
       var token = Cookies.get('token');
@@ -30,7 +30,7 @@ function showCombo() {
 
   var id = $('#comboMachines').val();
 
-  jQuery.get('https://picole-pi2.herokuapp.com/machines/' + id + "/", function(data) {
+  jQuery.get('http://localhost:8000/machines/' + id + "/", function(data) {
     for (let i = 0; i < data.stocks.length; i++) {
 
       var h2 = document.createElement('h2');
@@ -57,7 +57,7 @@ function patchStorage() {
 
   var id = $('#comboMachines').val();
 
-  jQuery.get('https://picole-pi2.herokuapp.com/machines/' + id + "/", function(data) {
+  jQuery.get('http://localhost:8000/machines/' + id + "/", function(data) {
     var lastStorage = data;
     for (let i = 0; i < data.stocks.length; i++) {
       var flavorId = data.stocks[i].popsicle.id;
@@ -68,7 +68,7 @@ function patchStorage() {
       if (quantity > data.stocks[i].amount) {
         var realQuantity = quantity - data.stocks[i].amount;
         $.ajax({
-          url: "https://picole-pi2.herokuapp.com/stock/entry/",
+          url: "http://localhost:8000/stock/entry/",
           data: {
             "popsicle": flavorId,
             "amount": realQuantity,
@@ -86,7 +86,7 @@ function patchStorage() {
 
         var realQuantityDecrease = data.stocks[i].amount - quantity;
         $.ajax({
-          url: "https://picole-pi2.herokuapp.com/stock/removal/",
+          url: "http://localhost:8000/stock/removal/",
           data: {
             "popsicle": flavorId,
             "amount": realQuantityDecrease,

@@ -126,7 +126,7 @@
       $("#flavorsTable").append("<tbody></tbody>");
 
       $.ajax({
-        url: "https://picole-pi2.herokuapp.com/users/vendors",
+        url: "http://localhost:8000/users/vendors",
         type: "GET",
         beforeSend: function(xhr) {
           var token = Cookies.get('token');

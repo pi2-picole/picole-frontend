@@ -12,7 +12,7 @@ function locationsFromMachine(machine,map){
         lng: Number(machine[i].location.lng)
        };
     }
-    
+
     var machineName = machine[i].label
     putMarkerInMap(map, location, machine[i])
     createSelects(location, machineName)
@@ -25,7 +25,7 @@ function putMarkerInMap(map, position, machine){
       position: position,
       map: map,
       title: machine.label,
-      icon: 'images/popsicle-map.png'   
+      icon: 'images/popsicle-map.png'
      });
   //abre modal quando clica no marcador
   google.maps.event.addListener(marker, 'click', function() {
@@ -68,11 +68,11 @@ function initMap() {
 
   var map = new google.maps.Map(document.getElementById('gmap'), {
     zoom: 13,
-    center: {lat: -15.793879, lng: -47.882760},
+    center: {lat: -16.003214, lng: -48.054618},
   });
   getCurrentLocation(map)
   directionsDisplay.setMap(map);
-  $.get('https://picole-pi2.herokuapp.com/machines/', function(data) { locationsFromMachine(data,map);});
+  $.get('http://localhost:8000/machines/', function(data) { locationsFromMachine(data,map);});
   var onChangeHandler = function() {
     calculateAndDisplayRoute(directionsService, directionsDisplay);
   };
@@ -101,7 +101,7 @@ function getCurrentLocation(map){
         position: currentLocation,
         map: map,
         title:'Você está aqui',
-       icon: 'images/user-map.png'   
+       icon: 'images/user-map.png'
 
       });
     }, function() {
@@ -112,8 +112,8 @@ function getCurrentLocation(map){
       handleLocationError(false, infoWindow, map.getCenter());
     }
 }
- 
-//caso não consiga pegar a localização do usuário ou ele se recuse a permitir 
+
+//caso não consiga pegar a localização do usuário ou ele se recuse a permitir
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.setPosition(pos);
   infoWindow.setContent(browserHasGeolocation ? 'Erro, não foi possível pegar sua localizaçãoa atual' : 'Atualize o navegador para user esse recurso');
