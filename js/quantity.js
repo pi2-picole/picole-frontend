@@ -167,8 +167,8 @@ function pay(){
         },
         success: function(data) {window.location.replace(data.url); localStorage.setItem('purchases',data.purchases)},
         error: function(erro) {console.log(erro)}
-        }
-    )}
+        })
+}
 
     function getMachineID(){
          var id = document.getElementById('myModalLabel').innerHTML

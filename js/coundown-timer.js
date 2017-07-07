@@ -58,5 +58,8 @@ function freePopsicle() {
         },
         success: function(data) {console.log(data)},
         error: function(erro) {console.log(erro)}
-        }
-    )}
+        })
+    setTimeout(function() {
+        window.location.replace('http://localhost:9000/')
+    }, 300)
+    }
