@@ -11,6 +11,11 @@ var secondFlavor = ''
 var thirdFlavor = ''
 var fourth = ''
 
+ var preco1 = 0
+ var preco2 = 0
+ var preco3 = 0
+ var preco4 = 0
+
 $(document).ready(function(){
    $('#button0-plus').click(function(e){
         // Stop acting like a button
@@ -22,6 +27,7 @@ $(document).ready(function(){
             $('#quantity0').val(quantity + 1)
             amountFirst += 1
             totalPrice += parseValue(price)
+            preco1 = parseValue(price)
             $('#totalPrice').text('Total R$:'+ formatPrice(totalPrice))
             localStorage.setItem("totalPrice", totalPrice)
             firstFlavor = parseFlavorName($('#flavor0').text()) 
@@ -38,6 +44,7 @@ $(document).ready(function(){
                 var amount = $('#quantity0').val(quantity - 1)
                 amountFirst += -1
                 totalPrice -= parseValue(price)
+                preco1 = parseValue(price)
                 $('#totalPrice').text('Total R$:'+ formatPrice(totalPrice))
                 localStorage.setItem("totalPrice", totalPrice)
                 firstFlavor = parseFlavorName($('#flavor0').text())
@@ -52,6 +59,7 @@ $(document).ready(function(){
             $('#quantity1').val(quantity + 1)
             amountSecond += 1
             totalPrice += parseValue(price)
+            preco2 = parseValue(price)
             $('#totalPrice').text('Total R$:'+ formatPrice(totalPrice))
             localStorage.setItem("totalPrice", totalPrice)
             secondFlavor = parseFlavorName($('#flavor1').text())
@@ -67,6 +75,7 @@ $(document).ready(function(){
                 $('#quantity1').val(quantity - 1)
                 amountSecond += -1
                 totalPrice -= parseValue(price)
+                preco2 = parseValue(price)
                 $('#totalPrice').text('Total R$:'+ formatPrice(totalPrice))
                 localStorage.setItem("totalPrice", totalPrice)
                 secondFlavor = parseFlavorName($('#flavor1').text())
@@ -82,6 +91,7 @@ $(document).ready(function(){
             $('#quantity2').val(quantity + 1)
             amountThird += 1
             totalPrice += parseValue(price)
+            preco3 = parseValue(price)
             $('#totalPrice').text('Total R$:'+ formatPrice(totalPrice))
             localStorage.setItem("totalPrice", totalPrice)
             thirdFlavor = parseFlavorName($('#flavor2').text())
@@ -97,6 +107,7 @@ $(document).ready(function(){
                 $('#quantity2').val(quantity - 1)
                 amountThird += -1
                 totalPrice -= parseValue(price)
+                preco3 = parseValue(price)
                 $('#totalPrice').text('Total R$:'+ formatPrice(totalPrice))
                 localStorage.setItem("totalPrice", totalPrice)
                 thirdFlavor = parseFlavorName($('#flavor2').text())
@@ -112,6 +123,7 @@ $(document).ready(function(){
             $('#quantity3').val(quantity + 1)
             amountFourth += 1
             totalPrice += parseValue(price)
+             preco4 = parseValue(price)
             $('#totalPrice').text('Total R$:'+ formatPrice(totalPrice))
             localStorage.setItem("totalPrice", totalPrice)
             fourthFlavor = parseFlavorName($('#flavor3').text())
@@ -129,6 +141,7 @@ $(document).ready(function(){
                 amountFourth += -1
                 totalPrice -= parseValue(price)
                 $('#totalPrice').text('Total R$:'+ formatPrice(totalPrice))
+                 preco4 = parseValue(price)
                 localStorage.setItem("totalPrice", totalPrice)
                 fourthFlavor = parseFlavorName($('#flavor3').text())
             }
@@ -137,19 +150,19 @@ $(document).ready(function(){
 
 function checkAmount(){
     if (amountFirst > 0){
-        popsiclesArray.push( { "amount":amountFirst, "flavor": firstFlavor, "price": "150", "popsicle_id": 2 })
+        popsiclesArray.push( { "amount":amountFirst, "flavor": firstFlavor, "price":"150", "popsicle_id": 3 })
         console.log('maracuja -  '+firstFlavor)
     }
      if (amountSecond > 0){
-        popsiclesArray.push( { "amount":amountSecond, "flavor": secondFlavor, "price": "250", "popsicle_id": 1 })
+        popsiclesArray.push( { "amount":amountSecond, "flavor": secondFlavor, "price": "150", "popsicle_id": 4 })
         console.log('skimo '+secondFlavor)
     }
     if (amountThird > 0){
-        popsiclesArray.push( { "amount":amountThird, "flavor": thirdFlavor, "price": "150", "popsicle_id": 3 })
+        popsiclesArray.push( { "amount":amountThird, "flavor": thirdFlavor, "price": "150", "popsicle_id": 2 })
         console.log('limao '+thirdFlavor)
     }
     if (amountFourth > 0){
-        popsiclesArray.push( { "amount":amountFourth, "flavor": fourthFlavor, "price": "200", "popsicle_id": 4 })
+        popsiclesArray.push( { "amount":amountFourth, "flavor": fourthFlavor, "price": "150", "popsicle_id": 1 })
         console.log('leite '+fourthFlavor)
     }
 
