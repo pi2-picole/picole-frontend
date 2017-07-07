@@ -1,10 +1,15 @@
 var popsiclesArray = []
 var totalPrice = 0
 
-var amountChocolate = 0
-var amountCoco = 0
-var amountMorango = 0
-var amountLeiteCondensado = 0
+var amountSecond = 0
+var amountFirst = 0
+var amountThird = 0
+var amountFourth = 0
+
+var firstFlavor = ''
+var secondFlavor = ''
+var thirdFlavor = ''
+var fourth = ''
 
 $(document).ready(function(){
    $('#button0-plus').click(function(e){
@@ -15,10 +20,11 @@ $(document).ready(function(){
         price = $('#flavor0').text()
         var flavor0 = $('#flavor0')
             $('#quantity0').val(quantity + 1)
-            amountCoco += 1
+            amountFirst += 1
             totalPrice += parseValue(price)
             $('#totalPrice').text('Total R$:'+ formatPrice(totalPrice))
             localStorage.setItem("totalPrice", totalPrice)
+            firstFlavor = parseFlavorName($('#flavor0').text()) 
 
     })
      $('#button0-minus').click(function(e){
@@ -30,10 +36,11 @@ $(document).ready(function(){
                     // Increment
             if(quantity>0){
                 var amount = $('#quantity0').val(quantity - 1)
-                amountCoco += -1
+                amountFirst += -1
                 totalPrice -= parseValue(price)
                 $('#totalPrice').text('Total R$:'+ formatPrice(totalPrice))
                 localStorage.setItem("totalPrice", totalPrice)
+                firstFlavor = parseFlavorName($('#flavor0').text())
             }
     })
     $('#button1-plus').click(function(e){
@@ -43,10 +50,11 @@ $(document).ready(function(){
         var quantity = parseInt($('#quantity1').val())
         price = $('#flavor1').text()
             $('#quantity1').val(quantity + 1)
-            amountChocolate += 1
+            amountSecond += 1
             totalPrice += parseValue(price)
             $('#totalPrice').text('Total R$:'+ formatPrice(totalPrice))
             localStorage.setItem("totalPrice", totalPrice)
+            secondFlavor = parseFlavorName($('#flavor1').text())
     })
      $('#button1-minus').click(function(e){
         // Stop acting like a button
@@ -57,10 +65,11 @@ $(document).ready(function(){
                     // Increment
             if(quantity>0){
                 $('#quantity1').val(quantity - 1)
-                amountChocolate += -1
+                amountSecond += -1
                 totalPrice -= parseValue(price)
                 $('#totalPrice').text('Total R$:'+ formatPrice(totalPrice))
                 localStorage.setItem("totalPrice", totalPrice)
+                secondFlavor = parseFlavorName($('#flavor1').text())
             }
     })
     $('#button2-plus').click(function(e){
@@ -71,10 +80,11 @@ $(document).ready(function(){
         price = $('#flavor2').text()
 
             $('#quantity2').val(quantity + 1)
-            amountMorango += 1
+            amountThird += 1
             totalPrice += parseValue(price)
             $('#totalPrice').text('Total R$:'+ formatPrice(totalPrice))
             localStorage.setItem("totalPrice", totalPrice)
+            thirdFlavor = parseFlavorName($('#flavor2').text())
     })
      $('#button2-minus').click(function(e){
         // Stop acting like a button
@@ -85,10 +95,11 @@ $(document).ready(function(){
                     // Increment
             if(quantity>0){
                 $('#quantity2').val(quantity - 1)
-                amountMorango += -1
+                amountThird += -1
                 totalPrice -= parseValue(price)
                 $('#totalPrice').text('Total R$:'+ formatPrice(totalPrice))
                 localStorage.setItem("totalPrice", totalPrice)
+                thirdFlavor = parseFlavorName($('#flavor2').text())
             }
     })
     $('#button3-plus').click(function(e){
@@ -99,10 +110,11 @@ $(document).ready(function(){
         price = $('#flavor3').text()
 
             $('#quantity3').val(quantity + 1)
-            amountLeiteCondensado += 1
+            amountFourth += 1
             totalPrice += parseValue(price)
             $('#totalPrice').text('Total R$:'+ formatPrice(totalPrice))
             localStorage.setItem("totalPrice", totalPrice)
+            fourthFlavor = parseFlavorName($('#flavor3').text())
 
     })
      $('#button3-minus').click(function(e){
@@ -114,35 +126,39 @@ $(document).ready(function(){
                     // Increment
             if(quantity>0){
                 $('#quantity3').val(quantity - 1)
-                amountLeiteCondensado += -1
+                amountFourth += -1
                 totalPrice -= parseValue(price)
                 $('#totalPrice').text('Total R$:'+ formatPrice(totalPrice))
                 localStorage.setItem("totalPrice", totalPrice)
+                fourthFlavor = parseFlavorName($('#flavor3').text())
             }
     })
 })
 
 function checkAmount(){
-    if (amountChocolate > 0){
-        popsiclesArray.push( { "amount":amountChocolate, "flavor": "Chocolate", "price": "250", "popsicle_id": 1 })
+    if (amountSecond > 0){
+        popsiclesArray.push( { "amount":amountSecond, "flavor": secondFlavor, "price": "250", "popsicle_id": 1 })
     }
-    if (amountCoco > 0){
-        popsiclesArray.push( { "amount":amountCoco, "flavor": "Coco", "price": "150", "popsicle_id": 2 })
+    if (amountFirst > 0){
+        popsiclesArray.push( { "amount":amountFirst, "flavor": firstFlavor, "price": "150", "popsicle_id": 2 })
     }
-    if (amountMorango > 0){
-        popsiclesArray.push( { "amount":amountMorango, "flavor": "Morango", "price": "100", "popsicle_id": 3 })
+    if (amountThird > 0){
+        popsiclesArray.push( { "amount":amountThird, "flavor": thirdFlavor, "price": "150", "popsicle_id": 3 })
     }
-    if (amountLeiteCondensado > 0){
-        popsiclesArray.push( { "amount":amountLeiteCondensado, "flavor": "Leite Condensado", "price": "250", "popsicle_id": 4 })
+    if (amountFourth > 0){
+        popsiclesArray.push( { "amount":amountFourth, "flavor": fourthFlavor, "price": "200", "popsicle_id": 4 })
     }
-
-    console.log(popsiclesArray)
 }
 
 function parseValue(price){
     price = price.split("$")
     price = parseFloat(price[1].replace(/,/g, ''))
     return price
+}
+
+function parseFlavorName(name){
+    name = name.split('R')
+    return name[0]
 }
 
 function formatPrice(price){
@@ -157,6 +173,7 @@ function pay(){
     "machine_id": getMachineID(),
     "popsicles": popsiclesArray
      }
+     console.log(data)
     $.ajax({
         url: "https://picole-pi2.herokuapp.com/purchases/",
         data: JSON.stringify(data),
