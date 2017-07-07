@@ -198,24 +198,22 @@ $(document).ready(function() {
 // Temperature Chart
 
   $.ajax({
-    url: "https://picole-pi2.herokuapp.com/machines/1/graph_by_day/",
+    url: "https://picole-pi2.herokuapp.com/machines/1/graph_temp/",
     type: "GET",
     beforeSend: function(xhr) {
       var token = Cookies.get('token');
       xhr.setRequestHeader('Authorization', 'Token ' + token);
     },
     success: function(response) {
-
-
-      var totals = [];
-      var labels = [];
+      var temps = [];
       var dates = [];
+      console.log(response);
+
       for (let i in response) {
-        totals.push(response.location.temperature);
-        dates.push(response.location.updated_at)
+        console.log(i);
+        temps.push(response[i].temp);
+        dates.push(response[i].date);
       }
-        console.log(totals);
-        console.log(dates);
 
 
       var configTemp = {
@@ -227,7 +225,7 @@ $(document).ready(function() {
             fill: false,
             backgroundColor: window.chartColors.blue,
             borderColor: window.chartColors.blue,
-            data: totals,
+            data: temps,
           }]
         },
         options: {
@@ -263,7 +261,7 @@ $(document).ready(function() {
       loadTemp(configTemp);
     },
     error: function(erro) {
-      var text = JSON.parse(error.responseText);
+      var text = JSON.parse(erro.responseText);
       for (let i in text) {
         alert(text[i]);
       }
