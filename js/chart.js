@@ -3,7 +3,7 @@ $(document).ready(function() {
 //By Day Chart
 
   $.ajax({
-    url: "http://localhost:8000/machines/1/graph_by_day/",
+    url: "https://picole-pi2.herokuapp.com/machines/1/graph_by_day/",
     type: "GET",
     beforeSend: function(xhr) {
       var token = Cookies.get('token');
@@ -120,7 +120,7 @@ $(document).ready(function() {
   // Total Chart
 
   $.ajax({
-    url: "http://localhost:8000/machines/1/graph_total/",
+    url: "https://picole-pi2.herokuapp.com/machines/1/graph_total/",
     type: "GET",
     beforeSend: function(xhr) {
       var token = Cookies.get('token');
@@ -198,7 +198,7 @@ $(document).ready(function() {
 // Temperature Chart
 
   $.ajax({
-    url: "http://localhost:8000/machines/1/graph_by_day/",
+    url: "https://picole-pi2.herokuapp.com/machines/1/graph_by_day/",
     type: "GET",
     beforeSend: function(xhr) {
       var token = Cookies.get('token');

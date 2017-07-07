@@ -49,7 +49,7 @@ function freePopsicle() {
         return Number(x)
      })
     $.ajax({
-        url: "http://localhost:8000/purchases/release/",
+        url: "https://picole-pi2.herokuapp.com/purchases/release/",
         data: JSON.stringify(data),
         type: "POST",
         traditional: true,

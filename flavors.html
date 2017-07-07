@@ -122,7 +122,7 @@
 
       $("#flavorsTable").append("<tbody></tbody>");
 
-      jQuery.get('http://localhost:8000/popsicles/', function(data) {
+      jQuery.get('https://picole-pi2.herokuapp.com/popsicles/', function(data) {
 
         for (let i = 0; i < data.length; i++) {
           var price = data[i].price.replace(/(\d{1})(\d{1,2})$/, "$1,$2");

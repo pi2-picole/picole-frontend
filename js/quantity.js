@@ -158,7 +158,7 @@ function pay(){
     "popsicles": popsiclesArray
      }
     $.ajax({
-        url: "http://localhost:8000/purchases/",
+        url: "https://picole-pi2.herokuapp.com/purchases/",
         data: JSON.stringify(data),
         type: "POST",
         traditional: true,

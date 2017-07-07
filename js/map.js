@@ -70,7 +70,7 @@ function initMap() {
   });
   getCurrentLocation(map)
   directionsDisplay.setMap(map);
-  $.get('http://localhost:8000/machines/', function(data) { locationsFromMachine(data,map);});
+  $.get('https://picole-pi2.herokuapp.com/machines/', function(data) { locationsFromMachine(data,map);});
   var onChangeHandler = function() {
     calculateAndDisplayRoute(directionsService, directionsDisplay);
   };
