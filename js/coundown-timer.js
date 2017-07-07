@@ -1,6 +1,18 @@
+$(window).on('load',function(){
+        console.log(localStorage.getItem('buy'))
+        document.getElementById("freeButton").style.display="block"
+        var checkBuy = localStorage.getItem('buy')
+        if(checkBuy){
+            $('#checkBuy').modal('show');
+            document.getElementById("freeButton").style.display="none"
+            window.location.replace('https://picole.surge.sh/')
+        }
+    });
+
+
 // Set the date we're counting down to var date = new Date();
 var countDownDate = new Date();
-countDownDate.setHours (date.getHours() + 8 );
+countDownDate.setHours(date.getHours() + 8 );
 
 // Update the count down every 1 second
 var x = setInterval(function() {
@@ -27,13 +39,11 @@ var x = setInterval(function() {
     // If the count down is over, write some text
     if (distance < 0) {
         clearInterval(x);
-
         document.getElementById("expire").innerHTML = "EXPIRADO";
     }
 }, 1000);
 
 function expire() {
-    console.log("clicou")
     clearInterval(x);
     document.getElementById("expire").innerHTML = "EXPIRADO";
     document.getElementById("freeButton").style.display="none"
@@ -60,6 +70,6 @@ function freePopsicle() {
         error: function(erro) {console.log(erro)}
         })
     setTimeout(function() {
-        window.location.replace('http://localhost:9000/')
-    }, 300)
+        window.location.replace('https://picole.surge.sh/')
+    }, 500)
     }

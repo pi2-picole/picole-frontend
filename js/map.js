@@ -76,7 +76,7 @@ function initMap() {
   };
   document.getElementById('end').addEventListener('change', onChangeHandler);
   document.getElementById('mode').addEventListener('change', onChangeHandler);
-
+  localStorage.setItem('buy', false)
 }
 
 function getCurrentLocation(map){

@@ -165,7 +165,10 @@ function pay(){
         beforeSend: function(xhr){
              xhr.setRequestHeader('Content-Type', 'application/json')
         },
-        success: function(data) {window.location.replace(data.url); localStorage.setItem('purchases',data.purchases)},
+        success: function(data) {
+            window.location.replace(data.url)
+            localStorage.setItem('buy', true)
+            localStorage.setItem('purchases',data.purchases)},
         error: function(erro) {console.log(erro)}
         })
 }
