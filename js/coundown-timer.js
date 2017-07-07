@@ -1,11 +1,11 @@
 $(window).on('load',function(){
-        console.log(localStorage.getItem('buy'))
         document.getElementById("freeButton").style.display="block"
         var checkBuy = localStorage.getItem('buy')
-        if(checkBuy){
+         console.log(checkBuy)
+        if(!checkBuy){
             $('#checkBuy').modal('show');
             document.getElementById("freeButton").style.display="none"
-            window.location.replace('https://picole.surge.sh/')
+            // window.location.replace('https://picole.surge.sh/')
         }
     });
 
