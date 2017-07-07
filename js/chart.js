@@ -198,7 +198,7 @@ $(document).ready(function() {
 // Temperature Chart
 
   $.ajax({
-    url: "https://picole-pi2.herokuapp.com/machines/1/graph_by_day/",
+    url: "https://picole-pi2.herokuapp.com/machines/1/",
     type: "GET",
     beforeSend: function(xhr) {
       var token = Cookies.get('token');
@@ -209,19 +209,21 @@ $(document).ready(function() {
 
       var totals = [];
       var labels = [];
+      var dates = [];
       for (let i in response) {
-        totals.push(response[i].total);
-        labels.push(response[i].label);
-        console.log(totals);
+        totals.push(response.location.temperature);
+        dates.push(response.location.updated_at)
       }
+        console.log(totals);
+        console.log(dates);
 
 
       var configTemp = {
         type: 'line',
         data: {
-          labels: labels[0],
+          labels: dates,
           datasets: [{
-            label: flavors[0],
+            label: "Temperatura",
             fill: false,
             backgroundColor: window.chartColors.blue,
             borderColor: window.chartColors.blue,
@@ -232,7 +234,7 @@ $(document).ready(function() {
           responsive: true,
           title: {
             display: true,
-            text: 'Picolés vendidos por Dia '
+            text: 'Temperatura'
           },
           tooltips: {
             mode: 'index',
