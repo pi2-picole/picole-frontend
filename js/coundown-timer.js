@@ -20,24 +20,24 @@ var x = setInterval(function() {
 
     // Get todays date and time
     var now = new Date().getTime();
-    
+
     // Find the distance between now an the count down date
     var distance = countDownDate - now;
-    
+
     // Time calculations for days, hours, minutes and seconds
     var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    
+
     // Output the result in an element with id="demo"
     document.getElementById("hour").innerHTML = hours
 
     // Output the result in an element with id="demo"
-    document.getElementById("minutes").innerHTML = minutes 
+    document.getElementById("minutes").innerHTML = minutes
 
 		// Output the result in an element with id="demo"
     document.getElementById("seconds").innerHTML =  seconds
-    // If the count down is over, write some text 
+    // If the count down is over, write some text
     if (distance < 0) {
         clearInterval(x);
         document.getElementById("expire").innerHTML = "EXPIRADO";
@@ -67,10 +67,13 @@ function freePopsicle() {
         beforeSend: function(xhr){
              xhr.setRequestHeader('Content-Type', 'application/json')
         },
-        success: function(data) {console.log(data)},
-        error: function(erro) {console.log(erro)}
+        success: function(data) {
+          console.log(data.status);
+          window.location.replace('https://picole.surge.sh/');
+        },
+        error: function(erro) { console.log("ERRORRR!!!!!!"); console.log(erro);}
         })
-    setTimeout(function() {
-        window.location.replace('https://picole.surge.sh/')
-    }, 500)
+    // setTimeout(function() {
+    //
+    // }, 500)
     }
