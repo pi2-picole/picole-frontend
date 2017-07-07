@@ -1,9 +1,9 @@
 var popsiclesArray = []
-var totalPrice = 0 
+var totalPrice = 0
 
 var amountChocolate = 0
 var amountCoco = 0
-var amountMorango = 0 
+var amountMorango = 0
 var amountLeiteCondensado = 0
 
 $(document).ready(function(){
@@ -15,7 +15,7 @@ $(document).ready(function(){
         price = $('#flavor0').text()
         var flavor0 = $('#flavor0')
             $('#quantity0').val(quantity + 1)
-            amountCoco += 1 
+            amountCoco += 1
             totalPrice += parseValue(price)
             $('#totalPrice').text('Total R$:'+ formatPrice(totalPrice))
             localStorage.setItem("totalPrice", totalPrice)
@@ -30,7 +30,7 @@ $(document).ready(function(){
                     // Increment
             if(quantity>0){
                 var amount = $('#quantity0').val(quantity - 1)
-                amountCoco += -1  
+                amountCoco += -1
                 totalPrice -= parseValue(price)
                 $('#totalPrice').text('Total R$:'+ formatPrice(totalPrice))
                 localStorage.setItem("totalPrice", totalPrice)
@@ -152,13 +152,9 @@ function formatPrice(price){
 }
 
 function pay(){
-    console.log("Pay")
     checkAmount()
-    getMachineID()
-    // popsiclesArray = popsiclesArray.shift()
-    console.log(popsiclesArray)
     var data = {
-    "machine_id": getMachineID,
+    "machine_id": getMachineID(),
     "popsicles": popsiclesArray
      }
     $.ajax({
@@ -170,7 +166,7 @@ function pay(){
              xhr.setRequestHeader('Content-Type', 'application/json')
         },
         success: function(data) {window.location.replace(data.url); localStorage.setItem('purchases',data.purchases)},
-        error: function(erro) {console.log(erro)} 
+        error: function(erro) {console.log(erro)}
         }
     )}
 

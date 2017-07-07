@@ -41,12 +41,15 @@ function expire() {
 }
 
 function freePopsicle() {
-    console.log("Pay FINAL")
     var data = {
-         "purchases": [2, 3]
+         "purchases": localStorage.getItem('purchases')
      }
+     data.purchases = data.purchases.split(',')
+     data.purchases = data.purchases.map(function(x) {
+        return Number(x)
+     })
     $.ajax({
-        url: "http://picole-pi2.herokuapp.com/purchases/release/",
+        url: "http://localhost:8000/purchases/release/",
         data: JSON.stringify(data),
         type: "POST",
         traditional: true,
