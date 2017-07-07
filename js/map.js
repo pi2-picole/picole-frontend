@@ -12,11 +12,9 @@ function locationsFromMachine(machine,map){
         lng: Number(machine[i].location.lng)
        };
     }
-
-    var machineName = machine[i].label
     putMarkerInMap(map, location, machine[i])
-    createSelects(location, machineName)
-    getFlavorFromMachine(machine[i].stocks, machineName)
+    createSelects(location, machine[i])
+    getFlavorFromMachine(machine[i].stocks, machine[i])
   }
 }
 
@@ -29,19 +27,19 @@ function putMarkerInMap(map, position, machine){
      });
   //abre modal quando clica no marcador
   google.maps.event.addListener(marker, 'click', function() {
-    getFlavorFromMachine(machine.stocks, machine.label)
+    getFlavorFromMachine(machine.stocks, machine)
     $('#myModal').modal('show')
   });
 }
 
 //criar os selects dinamicamente
-function createSelects(location, machineName){
+function createSelects(location, machine){
   location = JSON.stringify(location)
-  $('<option>').val(location).text(machineName).appendTo('#end');
+  $('<option>').val(location).text(machine.label).appendTo('#end');
 }
 
 //associa os sabores as suas respectivas máquinas
-function getFlavorFromMachine(stocks, machineName){
+function getFlavorFromMachine(stocks, machine){
   for(var i=0; i<stocks.length; i++){
     if(stocks[i].popsicle != undefined){
       var price = stocks[i].popsicle.price
@@ -51,7 +49,7 @@ function getFlavorFromMachine(stocks, machineName){
       console.log('Nem todas as máquinas tem sabores!')
     }
   }
-   document.getElementById('myModalLabel').innerHTML = machineName
+  document.getElementById('myModalLabel').innerHTML = machine.id+ ' '+ machine.label
 }
 
 function formatPrice(price){
