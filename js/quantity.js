@@ -136,18 +136,24 @@ $(document).ready(function(){
 })
 
 function checkAmount(){
-    if (amountSecond > 0){
-        popsiclesArray.push( { "amount":amountSecond, "flavor": secondFlavor, "price": "250", "popsicle_id": 1 })
-    }
     if (amountFirst > 0){
         popsiclesArray.push( { "amount":amountFirst, "flavor": firstFlavor, "price": "150", "popsicle_id": 2 })
+        console.log('maracuja -  '+firstFlavor)
+    }
+     if (amountSecond > 0){
+        popsiclesArray.push( { "amount":amountSecond, "flavor": secondFlavor, "price": "250", "popsicle_id": 1 })
+        console.log('skimo '+secondFlavor)
     }
     if (amountThird > 0){
         popsiclesArray.push( { "amount":amountThird, "flavor": thirdFlavor, "price": "150", "popsicle_id": 3 })
+        console.log('limao '+thirdFlavor)
     }
     if (amountFourth > 0){
         popsiclesArray.push( { "amount":amountFourth, "flavor": fourthFlavor, "price": "200", "popsicle_id": 4 })
+        console.log('leite '+fourthFlavor)
     }
+
+    console.log('AAAA'+popsiclesArray)
 }
 
 function parseValue(price){
